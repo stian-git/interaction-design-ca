@@ -115,6 +115,11 @@ country.addEventListener("blur", validateCountry);
 function validateForm(event) {
   event.preventDefault();
   // Resets:
+
+  // Validations:
+  if (document.querySelectorAll(".validationerror").length === 0) {
+    // Actions to do when form is ready to be sent.
+  }
 }
 
 checkOutForm.addEventListener("submit", validateForm);
