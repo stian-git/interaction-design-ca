@@ -1,5 +1,10 @@
 .main__jacketlist {
   display: grid;
+  //color: #000;
+}
+
+.main__jacketlist a {
+  display: contents;
 }
 .jacketcontainer {
   border: 1px solid black;
@@ -9,6 +14,7 @@
   overflow: hidden;
   padding: 5%;
   text-align: center;
+  //color: black;
 }
 
 .image_container img {
@@ -59,6 +65,7 @@
   grid-area: jacket_header;
   font-size: 1.6em;
   margin: 0px 0px 0px 5%;
+  color: black;
 }
 .jacketprice {
   grid-area: jacket_price;

@@ -1,12 +1,14 @@
 const guitarsContainer = document.querySelector(".main__jacketlist");
 
 for (var i = 0; i < jackets.length; i++) {
-  let productLink = `<a href="jacketdetails.html?id=${jackets[i].id}" class="jacket-cta" title="${jackets[i].name}">View</a>`;
+  //let productLink = `<a href="jacketdetails.html?id=${jackets[i].id}" class="jacket-cta" title="${jackets[i].name}">View</a>`;
+  let productLink = `<p class="jacket-cta" title="${jackets[i].name}">View</p>`;
   let bestbuyIcon = ``;
   let maleIcon = ``;
   let femaleIcon = ``;
   if (jackets[i].sales === true) {
-    productLink = `<a href="jacketdetails.html?id=${jackets[i].id}" class="jacket-cta jacketsale" title="${jackets[i].name}">On Sale</a>`;
+    //productLink = `<a href="jacketdetails.html?id=${jackets[i].id}" class="jacket-cta jacketsale" title="${jackets[i].name}">On Sale</a>`;
+    productLink = `<p class="jacket-cta jacketsale" title="${jackets[i].name}">On Sale</p>`;
     bestbuyIcon = `<svg id="BestBuy-Mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82 78" aria-label="Best buy badge">
     <g id="Polygon_1" data-name="Polygon 1" fill="#0a3641">
       <path d="M 53.22784805297852 76.64013671875 L 41.46365737915039 70.48397827148438 L 41 70.24135589599609 L 40.53635406494141 70.48397827148438 L 28.77214431762695 76.64012908935547 L 22.87254524230957 64.74359893798828 L 22.64007759094238 64.27484130859375 L 22.12243270874023 64.19855499267578 L 8.986950874328613 62.26295852661133 L 11.20552253723145 49.16994476318359 L 11.2929220199585 48.65416717529297 L 10.91906642913818 48.28823471069336 L 1.429614782333374 38.9999885559082 L 10.91906642913818 29.71175575256348 L 11.2929220199585 29.34583282470703 L 11.20552253723145 28.83004379272461 L 8.986970901489258 15.73703002929688 L 22.12244415283203 13.80143356323242 L 22.64008903503418 13.7251443862915 L 22.87255477905273 13.25638866424561 L 28.77217292785645 1.359864592552185 L 40.536376953125 7.516033172607422 L 41.00003433227539 7.758655548095703 L 41.46368789672852 7.516033172607422 L 53.22784805297852 1.359876394271851 L 59.12746810913086 13.2564001083374 L 59.35993194580078 13.7251558303833 L 59.87757873535156 13.80143356323242 L 73.01303863525391 15.73704051971436 L 70.79447937011719 28.83005523681641 L 70.70707702636719 29.34583282470703 L 71.0809326171875 29.71176719665527 L 80.57038116455078 39 L 71.0809326171875 48.28823471069336 L 70.70707702636719 48.65416717529297 L 70.79447937011719 49.16994476318359 L 73.01303863525391 62.26295852661133 L 59.87757873535156 64.19855499267578 L 59.35993194580078 64.27484130859375 L 59.12746810913086 64.74359893798828 L 53.22784805297852 76.64013671875 Z" stroke="none"/>
@@ -21,16 +23,19 @@ for (var i = 0; i < jackets.length; i++) {
   if (jackets[i].female === true) {
     femaleIcon = `<img src="../images/outline_female_black_24dp.png" aria-label="Female Icon">`;
   }
-  guitarsContainer.innerHTML += `<div class="jacketcontainer">
-    <div class="image_container">
+  guitarsContainer.innerHTML += `
+  <a href="jacketdetails.html?id=${jackets[i].id}">
+    <div class="jacketcontainer">
+      <div class="image_container">
         <img src="${jackets[i].image}" alt="${jackets[i].name}" aria-label="Jacket name: ${jackets[i].name}"/>
         ${bestbuyIcon}
         </div>
-    <div class="jacket_info">
+      <div class="jacket_info">
         <h2>${jackets[i].name}</h2>
         <p class="jacketprice">${jackets[i].price} EUR</p>
         <p class="jacketgender">${femaleIcon} ${maleIcon}</p>
         ${productLink}
+      </div>
     </div>
-  </div>`;
+  </a>`;
 }
