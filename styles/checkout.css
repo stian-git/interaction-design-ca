@@ -142,3 +142,9 @@ table .name img {
   font-size: 1.2em;
   padding-left: 0px;
 }
+
+/* Validation: */
+
+.validationerror {
+  border-color: red;
+}
