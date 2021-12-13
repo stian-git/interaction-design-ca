@@ -104,11 +104,23 @@ nav ul li {
   font-size: 1.2em;
 }
 
-li a {
+/*li a {
   text-decoration: none;
+  color: var(--color_text);
+  background-color: #97bf75;
+}
+/* Below is for testing A outside LI*/
+/* a li {
+  text-decoration: none;
+  color: var(--color_text);
+} */
+
+ul a {
+  display: contents;
   color: var(--color_text);
 }
 
+/* */
 .fa-bars {
   top: 0px;
   width: 50px;
