@@ -74,6 +74,9 @@ header h1 {
   box-shadow: 1px 1px 30px black;
 }
 
+.logo a {
+  display: contents;
+}
 .logo img {
   align-self: center;
   width: 90%;
