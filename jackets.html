@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="description"
-      content="Rainy Days: Main page for out durable, comfortable jackets for adventurous and active people all over the world."
-    />
+    <meta name="description" content="Rainy Days Jackets. Overview of all our famous jackets." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/c42e915e6a.js" crossorigin="anonymous"></script>
     <!-- Hotjar Tracking Code for My site -->
@@ -28,9 +25,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&display=swap" rel="stylesheet" />
     <link href="styles/styles.css" rel="stylesheet" />
-    <link href="styles/index.css" rel="stylesheet" />
+    <link href="styles/jackets.css" rel="stylesheet" />
     <link href="styles/media.css" rel="stylesheet" />
-    <title>Rainy Days | Home</title>
+    <title>Rainy Days | Jackets</title>
   </head>
   <body>
     <header>
@@ -44,16 +41,15 @@
       <input type="checkbox" id="burgermenu" class="hamburger-menu" name="burgermenu" />
       <nav>
         <ul>
-          <li class="currentpage">
-            <img src="images/icon_button_home.png" alt="Home" aria-label="Home" />
-            Home
-          </li>
-
           <li>
-            <a href="jackets.html" title="Jackets">
-              <img src="images/icon_button_jacket.png" alt="Jackets" aria-label="Jackets" />
-              Jackets
+            <a href="index.html" title="Home">
+              <img src="images/icon_button_home.png" alt="Home" aria-label="Home" />
+              Home
             </a>
+          </li>
+          <li class="currentpage">
+            <img src="images/icon_button_jacket.png" alt="Jackets" aria-label="Jackets" />
+            Jackets
           </li>
           <li>
             <a href="about.html" title="About us">
@@ -62,7 +58,7 @@
             </a>
           </li>
           <li>
-            <a href="contact.html" title="Contact info">
+            <a href="contact.html" title="Contact">
               <img src="images/icon_button_phone.png" alt="Contact info" aria-label="Contact info" />
               Contact
             </a>
@@ -70,17 +66,18 @@
         </ul>
       </nav>
       <div class="basket_container">
-        <a href="checkout.html" class="basket" title="Checkout basket">
+        <a href="checkout.html" class="basket" title="Checkout Basket">
           <span class="basket_items-number">0</span>
           <div class="fas fa-shopping-cart fa-flip-horizontal fa-3x" aria-label="Shopping basket"></div>
         </a>
       </div>
-      <h1>Home</h1>
+      <h1>Jackets</h1>
     </header>
     <aside>
+      <div class="aside__scalefix"></div>
       <div class="aside__search-container">
         <form action="https://www.google.com/search" method="get" class="aside__search-field">
-          <input type="search" name="q" id="searchfield" placeholder=" Product Search" title="Search Field" />
+          <input type="search" name="q" id="searchfield" placeholder=" Product Search" title="Search field" />
           <input
             type="image"
             src="images/icon_search-button.png"
@@ -93,26 +90,19 @@
       </div>
       <div class="aside__scalefix"></div>
       <div class="banner_container">
-        <a href="jackets.html" alt="Banner Image" title="Jacket banner">
+        <a href="" alt="Banner Image" title="Banner Image">
           <img
             src="images/pexels-yan-krukov-5792901-500px.jpg"
             class="banner_image"
             alt="Offer: Nordic extreme rain jacket for men"
             aria-label="Offer: Nordic extreme rain jacket for men"
           />
-
-          <a href="jackets.html" class="banner_text" title="Jacket banner text">"Nordic Extreme": Gets you out of the comfort zone.</a>
+          <a href="" class="banner_text" title="Banner Image text">"Nordic Extreme": Gets you out of the comfort zone.</a>
         </a>
       </div>
     </aside>
     <main>
-      <div class="main__image">
-        <section class="main__content">
-          <p>Rainy Days delivers probably the most durable rain jackets on the market.</p>
-          <p>We are a family owned company well known for our comfortable rain jackets suitable for a wide range of weather types.</p>
-          <p class="adjustment_topmargin">Let's push the comfort zone together!</p>
-        </section>
-      </div>
+      <section class="main__jacketlist"></section>
     </main>
     <footer>
       <ul>
@@ -171,5 +161,7 @@
       </ul>
       <p>Created by Stian Martinsen - 2021</p>
     </footer>
+    <script src="js/jackets.js"></script>
+    <script src="js/addJackets.js"></script>
   </body>
 </html>

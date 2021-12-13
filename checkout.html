@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="description"
-      content="Rainy Days: Main page for out durable, comfortable jackets for adventurous and active people all over the world."
-    />
+    <meta name="description" content="Rainy Days Jackets. Check-out page." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/c42e915e6a.js" crossorigin="anonymous"></script>
     <!-- Hotjar Tracking Code for My site -->
@@ -28,15 +25,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&display=swap" rel="stylesheet" />
     <link href="styles/styles.css" rel="stylesheet" />
-    <link href="styles/index.css" rel="stylesheet" />
+    <link href="styles/checkout.css" rel="stylesheet" />
     <link href="styles/media.css" rel="stylesheet" />
-    <title>Rainy Days | Home</title>
+    <title>Rainy Days | Check-Out</title>
   </head>
   <body>
     <header>
       <div class="header__topline"></div>
       <div class="logo">
-        <img src="images/RainyDays_Logo.png" alt="Rainy days company logo" />
+        <img src="images/RainyDays_Logo.png" alt="Rainy days company logo" aria-label="Rainy Days Logo" />
       </div>
       <label for="burgermenu">
         <i class="fas fa-bars burgermenu"></i>
@@ -44,11 +41,12 @@
       <input type="checkbox" id="burgermenu" class="hamburger-menu" name="burgermenu" />
       <nav>
         <ul>
-          <li class="currentpage">
-            <img src="images/icon_button_home.png" alt="Home" aria-label="Home" />
-            Home
+          <li>
+            <a href="index.html" title="Home">
+              <img src="images/icon_button_home.png" alt="Home" aria-label="Home" />
+              Home
+            </a>
           </li>
-
           <li>
             <a href="jackets.html" title="Jackets">
               <img src="images/icon_button_jacket.png" alt="Jackets" aria-label="Jackets" />
@@ -62,25 +60,26 @@
             </a>
           </li>
           <li>
-            <a href="contact.html" title="Contact info">
+            <a href="contact.html" title="Contact">
               <img src="images/icon_button_phone.png" alt="Contact info" aria-label="Contact info" />
               Contact
             </a>
           </li>
         </ul>
       </nav>
-      <div class="basket_container">
-        <a href="checkout.html" class="basket" title="Checkout basket">
+      <div class="basket_container hidden">
+        <a href="checkout.html" class="basket" title="Checkout Basket">
           <span class="basket_items-number">0</span>
           <div class="fas fa-shopping-cart fa-flip-horizontal fa-3x" aria-label="Shopping basket"></div>
         </a>
       </div>
-      <h1>Home</h1>
+      <h1>Check out</h1>
     </header>
     <aside>
+      <div class="aside__scalefix"></div>
       <div class="aside__search-container">
         <form action="https://www.google.com/search" method="get" class="aside__search-field">
-          <input type="search" name="q" id="searchfield" placeholder=" Product Search" title="Search Field" />
+          <input type="search" name="q" id="searchfield" placeholder=" Product Search" title="Search field" />
           <input
             type="image"
             src="images/icon_search-button.png"
@@ -93,7 +92,7 @@
       </div>
       <div class="aside__scalefix"></div>
       <div class="banner_container">
-        <a href="jackets.html" alt="Banner Image" title="Jacket banner">
+        <a href="jackets.html" alt="Banner Image" title="Banner image">
           <img
             src="images/pexels-yan-krukov-5792901-500px.jpg"
             class="banner_image"
@@ -101,18 +100,134 @@
             aria-label="Offer: Nordic extreme rain jacket for men"
           />
 
-          <a href="jackets.html" class="banner_text" title="Jacket banner text">"Nordic Extreme": Gets you out of the comfort zone.</a>
+          <a href="jackets.html" class="banner_text" title="Banner image text">"Nordic Extreme": Gets you out of the comfort zone.</a>
         </a>
       </div>
     </aside>
-    <main>
-      <div class="main__image">
-        <section class="main__content">
-          <p>Rainy Days delivers probably the most durable rain jackets on the market.</p>
-          <p>We are a family owned company well known for our comfortable rain jackets suitable for a wide range of weather types.</p>
-          <p class="adjustment_topmargin">Let's push the comfort zone together!</p>
-        </section>
-      </div>
+    <main class="checkout__container">
+      <form method="GET" action="checkout-success.html">
+        <fieldset>
+          <figcaption><h2>Personal Info</h2></figcaption>
+          <label for="name">
+            Full name
+            <p class="required">
+              *
+              <span class="requiredtext">Required field</span>
+            </p>
+          </label>
+          <input type="text" name="name" id="name" />
+          <label for="email">
+            Email
+            <p class="required">
+              *
+              <span class="requiredtext">Required field</span>
+            </p>
+          </label>
+          <input type="email" name="email" id="email" />
+          <label for="phone">Phone</label>
+          <input type="tel" name="phone" id="phone" />
+        </fieldset>
+        <fieldset>
+          <figcaption><h2>Payment Info</h2></figcaption>
+
+          <label for="invoice">
+            <input type="radio" name="invoice" id="invoice" value="invoice" />
+            Invoice
+          </label>
+
+          <label for="creditcard">
+            <input type="radio" name="invoice" id="creditcard" value="creditcard" />
+            Credit card
+          </label>
+        </fieldset>
+        <fieldset>
+          <figcaption><h2>Delivery Address</h2></figcaption>
+          <label for="address1">
+            Address line 1
+            <p class="required">
+              *
+              <span class="requiredtext">Required field</span>
+            </p>
+          </label>
+          <input type="text" name="address1" id="address1" />
+          <label for="address2">Address line 1</label>
+          <input type="text" name="address2" id="address2" />
+          <label for="zip">
+            Zip Code
+            <p class="required">
+              *
+              <span class="requiredtext">Required field</span>
+            </p>
+          </label>
+          <input type="text" name="zip" id="zip" />
+          <label for="city">
+            Town/City
+            <p class="required">
+              *
+              <span class="requiredtext">Required field</span>
+            </p>
+          </label>
+          <input type="text" name="city" id="city" />
+          <label for="country">
+            Country
+            <p class="required">
+              *
+              <span class="requiredtext">Required field</span>
+            </p>
+          </label>
+          <input type="text" name="country" id="country" />
+        </fieldset>
+        <div class="placeorder_container">
+          <span>
+            <label for="terms">
+              <input type="checkbox" name="terms" id="terms" value="terms_accepted" />
+              I accept the
+            </label>
+            <a href="javascript:openTerms()" title="Read general terms">general terms</a>
+          </span>
+          <button type="submit" class="jacket-cta">Place order</button>
+        </div>
+      </form>
+      <section class="basket">
+        <h2>Basket</h2>
+        <table>
+          <tr class="rowheader">
+            <td class="name basket_headertext">Name</td>
+            <td class="basket_headertext">Qty</td>
+            <td class="basket_headertext">Price</td>
+            <td class="basket_headertext">Delete</td>
+          </tr>
+          <tr class="rowcolor_odd">
+            <td class="name">
+              <img src="./images/jacket-id1-thumb.jpg" class="basket_productimage" />
+              <p class="required">
+                <img src="./images/size-l.png" class="basket_navbutton" />
+                <img src="./images/outline_female_red_24dp.png" class="basket_navbutton" />
+                <span class="tooltip_top">Large, Female</span>
+              </p>
+
+              <p class="basket_productname">Warmy Adventure</p>
+            </td>
+            <td>
+              <img src="./images/PlusButton.png" class="basket_navbutton" aria-label="Add 1" title="Add 1" />
+              <p class="basket_qty" aria-label="Current quantity">1</p>
+              <img src="./images/MinusButton.png" class="basket_navbutton" aria-label="Subtract 1" title="Subtract 1" />
+            </td>
+            <td>290,00</td>
+            <td>
+              <img src="./images/X-Button.png" class="basket_navbutton" aria-label="Delete-button" title="Delete" />
+            </td>
+          </tr>
+        </table>
+        <div class="basket__summary">
+          <p>Shipment:</p>
+          <p>10,00</p>
+          <p>Invoice Fee:</p>
+          <p>5,00</p>
+          <p class="basket_headertext basket_total">Total incl. tax:</p>
+          <p class="basket_headertext basket_total">305,00</p>
+        </div>
+      </section>
     </main>
     <footer>
       <ul>
@@ -171,5 +286,6 @@
       </ul>
       <p>Created by Stian Martinsen - 2021</p>
     </footer>
+    <script src="js/openTerms.js"></script>
   </body>
 </html>

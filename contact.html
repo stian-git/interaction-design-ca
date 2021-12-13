@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="description"
-      content="Rainy Days: Main page for out durable, comfortable jackets for adventurous and active people all over the world."
-    />
+    <meta name="description" content="Rainy Days Jackets. Our contact info incl. addresses and a map." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/c42e915e6a.js" crossorigin="anonymous"></script>
     <!-- Hotjar Tracking Code for My site -->
@@ -28,9 +25,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&display=swap" rel="stylesheet" />
     <link href="styles/styles.css" rel="stylesheet" />
-    <link href="styles/index.css" rel="stylesheet" />
+    <link href="styles/contact.css" rel="stylesheet" />
     <link href="styles/media.css" rel="stylesheet" />
-    <title>Rainy Days | Home</title>
+    <title>Rainy Days | Contact</title>
   </head>
   <body>
     <header>
@@ -44,11 +41,12 @@
       <input type="checkbox" id="burgermenu" class="hamburger-menu" name="burgermenu" />
       <nav>
         <ul>
-          <li class="currentpage">
-            <img src="images/icon_button_home.png" alt="Home" aria-label="Home" />
-            Home
+          <li>
+            <a href="index.html" title="Home">
+              <img src="images/icon_button_home.png" alt="Home" aria-label="Home" />
+              Home
+            </a>
           </li>
-
           <li>
             <a href="jackets.html" title="Jackets">
               <img src="images/icon_button_jacket.png" alt="Jackets" aria-label="Jackets" />
@@ -61,21 +59,19 @@
               About
             </a>
           </li>
-          <li>
-            <a href="contact.html" title="Contact info">
-              <img src="images/icon_button_phone.png" alt="Contact info" aria-label="Contact info" />
-              Contact
-            </a>
+          <li class="currentpage">
+            <img src="images/icon_button_phone.png" alt="Contact info" aria-label="Contact info" />
+            Contact
           </li>
         </ul>
       </nav>
       <div class="basket_container">
-        <a href="checkout.html" class="basket" title="Checkout basket">
+        <a href="checkout.html" class="basket" title="Shopping basket">
           <span class="basket_items-number">0</span>
           <div class="fas fa-shopping-cart fa-flip-horizontal fa-3x" aria-label="Shopping basket"></div>
         </a>
       </div>
-      <h1>Home</h1>
+      <h1>Contact us</h1>
     </header>
     <aside>
       <div class="aside__search-container">
@@ -93,7 +89,7 @@
       </div>
       <div class="aside__scalefix"></div>
       <div class="banner_container">
-        <a href="jackets.html" alt="Banner Image" title="Jacket banner">
+        <a href="jackets.html" alt="Banner Image" title="Jacket banner image">
           <img
             src="images/pexels-yan-krukov-5792901-500px.jpg"
             class="banner_image"
@@ -106,13 +102,39 @@
       </div>
     </aside>
     <main>
-      <div class="main__image">
-        <section class="main__content">
-          <p>Rainy Days delivers probably the most durable rain jackets on the market.</p>
-          <p>We are a family owned company well known for our comfortable rain jackets suitable for a wide range of weather types.</p>
-          <p class="adjustment_topmargin">Let's push the comfort zone together!</p>
+      <section class="contact__main_container">
+        <section class="contact_info">
+          <div class="contact_info__details">
+            <p>Email:</p>
+            <p>post@rainydays.com</p>
+            <p>Phone:</p>
+            <p>+47 987 65 432</p>
+          </div>
+          <p class="openinghours">Opening hours:</p>
+          <div class="contact_info__openinghours">
+            <p>Monday-Friday:</p>
+            <p>08:00-16:00</p>
+            <p>Saturday:</p>
+            <p>10:00-15:00</p>
+            <p>Sunday:</p>
+            <p>Closed</p>
+          </div>
+          <p class="address_header">Address:</p>
+          <div class="address">
+            <p>Krankenhausst.14</p>
+            <p>43295 Bulmers</p>
+            <p>Norway</p>
+          </div>
         </section>
-      </div>
+        <section class="contact_map">
+          <iframe
+            allowfullscreen
+            loading="lazy"
+            src="https://www.google.com/maps/embed/v1/place?q=59.726056%2C%2010.773726&key=AIzaSyA8zYFiPDoEga4gYFD_qg_nRppaRgCqKYM"
+            aria-labelledby="Map of our location"
+          ></iframe>
+        </section>
+      </section>
     </main>
     <footer>
       <ul>

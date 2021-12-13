@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="description"
-      content="Rainy Days: Main page for out durable, comfortable jackets for adventurous and active people all over the world."
-    />
+    <meta name="description" content="Rainy Days Jackets. About our company and our history" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/c42e915e6a.js" crossorigin="anonymous"></script>
     <!-- Hotjar Tracking Code for My site -->
@@ -28,9 +25,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&display=swap" rel="stylesheet" />
     <link href="styles/styles.css" rel="stylesheet" />
-    <link href="styles/index.css" rel="stylesheet" />
+    <link href="styles/about.css" rel="stylesheet" />
     <link href="styles/media.css" rel="stylesheet" />
-    <title>Rainy Days | Home</title>
+    <title>Rainy Days | About Us</title>
   </head>
   <body>
     <header>
@@ -44,25 +41,24 @@
       <input type="checkbox" id="burgermenu" class="hamburger-menu" name="burgermenu" />
       <nav>
         <ul>
-          <li class="currentpage">
-            <img src="images/icon_button_home.png" alt="Home" aria-label="Home" />
-            Home
+          <li>
+            <a href="index.html" title="Home">
+              <img src="images/icon_button_home.png" alt="Home" aria-label="Home" />
+              Home
+            </a>
           </li>
-
           <li>
             <a href="jackets.html" title="Jackets">
               <img src="images/icon_button_jacket.png" alt="Jackets" aria-label="Jackets" />
               Jackets
             </a>
           </li>
-          <li>
-            <a href="about.html" title="About us">
-              <img src="images/icon_button_info.png" alt="About us" aria-label="About us" />
-              About
-            </a>
+          <li class="currentpage">
+            <img src="images/icon_button_info.png" alt="About us" aria-label="About us" />
+            About
           </li>
           <li>
-            <a href="contact.html" title="Contact info">
+            <a href="contact.html" title="Contact">
               <img src="images/icon_button_phone.png" alt="Contact info" aria-label="Contact info" />
               Contact
             </a>
@@ -70,17 +66,17 @@
         </ul>
       </nav>
       <div class="basket_container">
-        <a href="checkout.html" class="basket" title="Checkout basket">
+        <a href="checkout.html" class="basket" title="Checkout Basket">
           <span class="basket_items-number">0</span>
           <div class="fas fa-shopping-cart fa-flip-horizontal fa-3x" aria-label="Shopping basket"></div>
         </a>
       </div>
-      <h1>Home</h1>
+      <h1>About</h1>
     </header>
     <aside>
       <div class="aside__search-container">
         <form action="https://www.google.com/search" method="get" class="aside__search-field">
-          <input type="search" name="q" id="searchfield" placeholder=" Product Search" title="Search Field" />
+          <input type="search" name="q" id="searchfield" placeholder=" Product Search" title="Search field" />
           <input
             type="image"
             src="images/icon_search-button.png"
@@ -100,19 +96,27 @@
             alt="Offer: Nordic extreme rain jacket for men"
             aria-label="Offer: Nordic extreme rain jacket for men"
           />
-
           <a href="jackets.html" class="banner_text" title="Jacket banner text">"Nordic Extreme": Gets you out of the comfort zone.</a>
         </a>
       </div>
     </aside>
-    <main>
-      <div class="main__image">
-        <section class="main__content">
-          <p>Rainy Days delivers probably the most durable rain jackets on the market.</p>
-          <p>We are a family owned company well known for our comfortable rain jackets suitable for a wide range of weather types.</p>
-          <p class="adjustment_topmargin">Let's push the comfort zone together!</p>
-        </section>
-      </div>
+    <main class="about__main">
+      <p>Rainy Days was founded by the Martinsen-Stormyr family in 1980.</p>
+      <p>
+        Grandpa John kept complaining about the weather while visiting Bergen in Norway, but one day we came up with an idea of creating
+        water-resistant jackets to keep him dry. Who knew this would change our lives that much?
+      </p>
+      <p>
+        We started up with 15 people living together under the same roof on a small farm, and only 2 of us was involved making the first
+        jacket to grandpa. He then used it in all kinds of weather and our neighbours wanted jackets too, so we made more, and this was only
+        the start. The rumours about our jacket spread and this is how we started the Company. As the business growed more of the family got
+        involved in the company.
+      </p>
+      <p>When Grandpa John died, his last wish was to be buried with hit favorite jacket on.</p>
+      <p class="about__main_last_p">
+        Today the Martinsen-Stormyr family still own both the farm and the company, but the company growed out of the farm and had to move,
+        so we built our own fascilities within walking distance from the farm.
+      </p>
     </main>
     <footer>
       <ul>
