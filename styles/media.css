@@ -20,9 +20,12 @@
   .logo {
     grid-area: header_logo;
     left: 20px;
-    width: 413.6px;
-    height: 228px;
+    //width: 413.6px;
+    width: 260px;
+    //height: 228px;
+    height: 160px;
     display: inline-flex;
+    margin-right: 80px;
   }
 
   .logo img {
