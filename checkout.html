@@ -110,77 +110,113 @@
     </aside>
     <main class="checkout__container">
       <!-- <form method="GET" action="checkout-success.html"> -->
-      <form class="checkoutDetails" method="GET" action="">
+      <form class="checkoutDetails" method="GET" action="checkout-success.html">
         <fieldset>
           <figcaption><h2>Personal Info</h2></figcaption>
           <label for="name">
             Full name
             <p class="required">
-              *
+              <i class="fas fa-asterisk"></i>
               <span class="requiredtext">Required field</span>
             </p>
+            <p class="helptext">You need x characters.</p>
           </label>
-          <input type="text" name="name" id="name" />
+
+          <div class="inputcontainer name">
+            <input type="text" name="name" id="name" />
+            <i class="fas"></i>
+          </div>
           <label for="email">
             Email
             <p class="required">
-              *
+              <i class="fas fa-asterisk"></i>
               <span class="requiredtext">Required field</span>
             </p>
+            <p class="helptext"></p>
           </label>
-          <input type="email" name="email" id="email" />
+
+          <div class="inputcontainer email">
+            <input type="email" name="email" id="email" />
+            <i class="fas"></i>
+          </div>
           <label for="phone">Phone</label>
-          <input type="tel" name="phone" id="phone" />
+          <p class="helptext"></p>
+          <div class="inputcontainer phone">
+            <input type="tel" name="phone" id="phone" />
+            <i class="fas"></i>
+          </div>
         </fieldset>
         <fieldset>
           <figcaption><h2>Payment Info</h2></figcaption>
-
           <label for="invoice">
-            <input type="radio" name="invoice" id="invoice" value="invoice" />
+            <input type="radio" name="payment" id="invoice" value="invoice" checked="checked" />
             Invoice
           </label>
-
-          <label for="creditcard">
-            <input type="radio" name="invoice" id="creditcard" value="creditcard" />
+          <i>Other payment methods coming soon.</i>
+          <!-- <label for="creditcard">
+            <input type="radio" name="payment" id="creditcard" value="creditcard" />
             Credit card
-          </label>
+          </label> -->
         </fieldset>
         <fieldset>
           <figcaption><h2>Delivery Address</h2></figcaption>
           <label for="address1">
             Address line 1
             <p class="required">
-              *
+              <i class="fas fa-asterisk"></i>
               <span class="requiredtext">Required field</span>
             </p>
+            <p class="helptext"></p>
           </label>
-          <input type="text" name="address1" id="address1" />
-          <label for="address2">Address line 1</label>
-          <input type="text" name="address2" id="address2" />
+          <div class="inputcontainer address1">
+            <input type="text" name="address1" id="address1" />
+            <i class="fas"></i>
+          </div>
+          <label for="address2">Address line 2</label>
+          <p class="helptext"></p>
+          <div class="inputcontainer address2">
+            <input type="text" name="address2" id="address2" />
+            <i class="fas"></i>
+          </div>
           <label for="zip">
             Zip Code
             <p class="required">
-              *
+              <i class="fas fa-asterisk"></i>
               <span class="requiredtext">Required field</span>
             </p>
+            <p class="helptext"></p>
           </label>
-          <input type="text" name="zip" id="zip" />
+
+          <div class="inputcontainer zip">
+            <input type="text" name="zip" id="zip" />
+            <i class="fas"></i>
+          </div>
           <label for="city">
             Town/City
             <p class="required">
-              *
+              <i class="fas fa-asterisk"></i>
               <span class="requiredtext">Required field</span>
             </p>
+            <p class="helptext"></p>
           </label>
-          <input type="text" name="city" id="city" />
+
+          <div class="inputcontainer city">
+            <input type="text" name="city" id="city" />
+            <i class="fas"></i>
+          </div>
           <label for="country">
             Country
             <p class="required">
-              *
+              <i class="fas fa-asterisk"></i>
               <span class="requiredtext">Required field</span>
             </p>
+            <p class="helptext"></p>
           </label>
-          <input type="text" name="country" id="country" />
+
+          <div class="inputcontainer country">
+            <input type="text" name="country" id="country" />
+            <i class="fas"></i>
+          </div>
         </fieldset>
         <div class="placeorder_container">
           <span>
@@ -189,6 +225,7 @@
               I accept the
             </label>
             <a href="javascript:openTerms()" title="Read general terms">general terms</a>
+            <p class="helptext"></p>
           </span>
           <button type="submit" class="jacket-cta">Place order</button>
         </div>
@@ -292,6 +329,7 @@
       <p>Created by Stian Martinsen - 2021</p>
     </footer>
     <script src="js/openTerms.js"></script>
+    <script src="js/helpers.js"></script>
     <script src="js/checkout.js"></script>
   </body>
 </html>

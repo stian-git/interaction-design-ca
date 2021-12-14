@@ -13,6 +13,8 @@
   --color_bestbuy_sticker_bg: rgb(231, 147, 36);
   --color_radiobutton_marker: #97bf75;
   --color_radiobutton_marker_smallscreen: #191b26;
+  --color_validation_ok: #10de10;
+  --color_validation_failed: #ff0000;
   --font-header: Oswald, Verdana, Geneva, Tahoma, sans-serif;
   --font-bodytext: "Open Sans", Verdana, Geneva, Tahoma, sans-serif;
 }

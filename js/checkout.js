@@ -31,12 +31,33 @@ function textOnlyCheck(string) {
 }
 
 // Validate name field:
+
+function toggleValidation(field, status) {
+  //const valName = document.querySelector(".name .fas");
+  field.style.display = "inline-flex";
+  if (status === true) {
+    field.classList.remove("fa-exclamation-circle");
+    field.classList.add("fa-check-circle");
+    checkAllFields();
+  } else {
+    field.classList.remove("fa-check-circle");
+    field.classList.add("fa-exclamation-circle");
+    submitButton.disabled = true;
+  }
+}
 function validateName(event) {
-  if (!lengthCheck(fullName.value, 3) || !textOnlyCheck(fullName.value)) {
+  const validationField = document.querySelector(".name .fas");
+  const helptext = document.querySelector("label[for=name] .helptext");
+  const nameLength = 3;
+  if (!lengthCheck(fullName.value, nameLength) || !textOnlyCheck(fullName.value)) {
     fullName.classList.add("validationerror");
+    toggleValidation(validationField, false);
+    helptext.style.display = "block";
+    helptext.innerHTML = `Only letters. Minimum ${nameLength} characters.`;
   } else {
     fullName.classList.remove("validationerror");
-    // Add visual for success?
+    toggleValidation(validationField, true);
+    helptext.style.display = "none";
   }
 }
 
@@ -44,11 +65,17 @@ fullName.addEventListener("blur", validateName);
 
 // Validate email address:
 function validateEmailAddress(event) {
+  const validationField = document.querySelector(".email .fas");
+  const helptext = document.querySelector("label[for=email] .helptext");
   if (!validateEmail(email.value)) {
     email.classList.add("validationerror");
+    toggleValidation(validationField, false);
+    helptext.style.display = "block";
+    helptext.innerHTML = "Email address looks invalid";
   } else {
     email.classList.remove("validationerror");
-    // Add visual for success?
+    toggleValidation(validationField, true);
+    helptext.style.display = "none";
   }
 }
 
@@ -56,11 +83,18 @@ email.addEventListener("blur", validateEmailAddress);
 
 // Validate address line 1 field:
 function validateAddress1(event) {
-  if (!lengthCheck(addressLine1.value, 3)) {
+  const validationField = document.querySelector(".address1 .fas");
+  const helptext = document.querySelector("label[for=address1] .helptext");
+  const address1Length = 3;
+  if (!lengthCheck(addressLine1.value, address1Length)) {
     addressLine1.classList.add("validationerror");
+    toggleValidation(validationField, false);
+    helptext.style.display = "block";
+    helptext.innerHTML = `Minium ${address1Length} characters needed.`;
   } else {
     addressLine1.classList.remove("validationerror");
-    // Add visual for success?
+    toggleValidation(validationField, true);
+    helptext.style.display = "none";
   }
 }
 
@@ -76,11 +110,18 @@ addressLine2.addEventListener("blur", validateAddress2);
 
 // Validate Zip:
 function validateZip(event) {
-  if (!lengthCheck(zip.value, 3)) {
+  const validationField = document.querySelector(".zip .fas");
+  const helptext = document.querySelector("label[for=zip] .helptext");
+  const zipLength = 3;
+  if (!lengthCheck(zip.value, zipLength)) {
     zip.classList.add("validationerror");
+    toggleValidation(validationField, false);
+    helptext.style.display = "block";
+    helptext.innerHTML = `Minium ${zipLength} characters needed.`;
   } else {
     zip.classList.remove("validationerror");
-    // Add visual for success?
+    toggleValidation(validationField, true);
+    helptext.style.display = "none";
   }
 }
 
@@ -88,11 +129,18 @@ zip.addEventListener("blur", validateZip);
 
 // Validate City:
 function validateCity(event) {
-  if (!lengthCheck(city.value, 3) || !textOnlyCheck(city.value)) {
+  const validationField = document.querySelector(".city .fas");
+  const helptext = document.querySelector("label[for=city] .helptext");
+  const cityLength = 3;
+  if (!lengthCheck(city.value, cityLength) || !textOnlyCheck(city.value)) {
     city.classList.add("validationerror");
+    toggleValidation(validationField, false);
+    helptext.style.display = "block";
+    helptext.innerHTML = `Only letters. Minimum ${cityLength} characters.`;
   } else {
     city.classList.remove("validationerror");
-    // Add visual for success?
+    toggleValidation(validationField, true);
+    helptext.style.display = "none";
   }
 }
 
@@ -100,26 +148,63 @@ city.addEventListener("blur", validateCity);
 
 // Validate Country:
 function validateCountry(event) {
-  if (!lengthCheck(country.value, 3) || !textOnlyCheck(country.value)) {
+  const validationField = document.querySelector(".country .fas");
+  const helptext = document.querySelector("label[for=country] .helptext");
+  if (country.value === "") {
     country.classList.add("validationerror");
+    toggleValidation(validationField, false);
+    helptext.style.display = "block";
+    helptext.innerHTML = "Please select a country.";
   } else {
     country.classList.remove("validationerror");
-    // Add visual for success?
+    toggleValidation(validationField, true);
+    helptext.style.display = "none";
   }
 }
 
+country.addEventListener("change", validateCountry);
 country.addEventListener("blur", validateCountry);
 
 // Final check before sending.
 
-function validateForm(event) {
-  event.preventDefault();
-  // Resets:
+const termsCheckbox = document.querySelector("#terms");
 
-  // Validations:
-  if (document.querySelectorAll(".validationerror").length === 0) {
-    // Actions to do when form is ready to be sent.
+function validateTerms(event) {
+  //console.log("Validating Terms...!");
+  const helptext = document.querySelector(".placeorder_container .helptext");
+  if (!termsCheckbox.checked) {
+    helptext.style.display = "block";
+    helptext.innerHTML = "Please accept terms to place order.";
+  } else {
+    helptext.style.display = "none";
   }
 }
 
-checkOutForm.addEventListener("submit", validateForm);
+termsCheckbox.addEventListener("click", validateTerms);
+
+const submitButton = document.querySelector("button[type=submit]");
+submitButton.disabled = true;
+
+// CHECK and enable fields
+function checkAllFields() {
+  // NB: Currently missing additional check for Payment method as there are only one option.
+  const validationCorrectCount = document.querySelectorAll(".fa-check-circle").length;
+  if (validationCorrectCount === 6) {
+    if (!termsCheckbox.checked) {
+      validateTerms();
+      return;
+    }
+    submitButton.disabled = false;
+  } else {
+    submitButton.disabled = true;
+  }
+}
+checkOutForm.addEventListener("change", checkAllFields);
+
+// Uncomment the below to stop forwarding data to the next page.
+// function validateForm(event) {
+//   event.preventDefault();
+//   console.log("Submit");
+// }
+
+// checkOutForm.addEventListener("submit", validateForm);

@@ -9,6 +9,12 @@
   height: 1.4em;
 }
 
+select {
+  border-radius: 6px;
+  height: 1.8em;
+  border: 2px solid black;
+}
+
 .checkout__container section {
   flex: 2;
   min-width: 300px;
@@ -45,12 +51,21 @@
   display: block;
 }
 
+button:disabled:hover {
+  text-decoration: none;
+}
+button:disabled {
+  color: white;
+  background-color: #dfdfdf;
+  border: 0px;
+}
 fieldset:nth-child(1) {
   grid-area: form_personal;
 }
 
 fieldset:nth-child(1) input,
-fieldset:nth-child(3) input {
+fieldset:nth-child(3) input,
+fieldset:nth-child(3) select {
   width: 200px;
 }
 fieldset:nth-child(2) {
@@ -146,5 +161,28 @@ table .name img {
 /* Validation: */
 
 .validationerror {
-  border-color: red;
+  border-color: var(--color_validation_failed);
+}
+
+.fa-check-circle {
+  color: var(--color_validation_ok);
+  display: none;
+}
+
+.fa-exclamation-circle {
+  color: var(--color_validation_failed);
+  display: none;
+}
+
+.fa-asterisk {
+  font-size: 10px;
+}
+
+.helptext {
+  font-size: 0.9em;
+  margin: 0 2px 0 0;
+  background-color: pink;
+  padding: 2px 0 2px 5px;
+  border-radius: 6px;
+  display: none;
 }
