@@ -36,12 +36,12 @@ jacketContainer.innerHTML = `<section class="jacketdetails__images">
   <p><a href="#jacket_details" alt="Read details for this jacket" title="Read details about this jacket">Read more...</a></p>
   <form action="checkout.html" method="get" class="form_orderdetails">
     <fieldset>
-      <legend>Gender:</legend>
+      <legend>Select Gender:</legend>
       <input type="radio" name="gender" id="female" value="female" hidden="true"><label for="female" class="gender"><p class="required"><img src="../images/outline_female_red_24dp.png"><span class="tooltip_top tooltip_gendertop">Female</span></p></label>
       <input type="radio" name="gender" id="male" value="male" hidden="true"><label for="male" class="gender"><p class="required"><img src="../images/outline_male_red_24dp.png"><span class="tooltip_top tooltip_gendertop">Male</span></p></label>
     </fieldset>
     <fieldset>
-    <legend>Size:</legend>
+    <legend>Select Size:</legend>
       <input type="radio" name="size" id="size-s" value="size-s" hidden="true"><label for="size-s"><img src="../images/size-s.png" aria-label="Size: S"></label>
       <input type="radio" name="size" id="size-m" value="size-m" hidden="true"><label for="size-m"><img src="../images/size-m.png" aria-label="Size: M"></label>
       <input type="radio" name="size" id="size-l" value="size-l" hidden="true"><label for="size-l"><img src="../images/size-l.png" aria-label="Size: L"></label>
@@ -49,7 +49,8 @@ jacketContainer.innerHTML = `<section class="jacketdetails__images">
       <input type="radio" name="size" id="size-xxl" value="size-xxl" hidden="true"><label for="size-xxl"><img src="../images/size-xxl.png" aria-label="Size: XXL"></label>
     </fieldset>
     <p class="product-specific__price">${jacket.price} EUR</p>
-    <input type="submit" value="Buy now" class="jacket-cta" aria-label="Click to buy now">
+    <input type="hidden" value="${jacketId}" id="id" name="id">
+    <button type="submit" class="jacket-cta" aria-label="Click to buy now">Buy now</button>
   </form>
   
   </div>
@@ -70,3 +71,21 @@ jacketContainer.innerHTML = `<section class="jacketdetails__images">
   <blockquote>${jacket.reviewtext}</blockquote>
   <p class="reviewername">${jacket.reviewer}</p>
 </section>`;
+
+const buyButton = document.querySelector("button[type=submit]");
+//console.log(buyButton);
+buyButton.disabled = true;
+
+function checkSections() {
+  const selectedSize = document.querySelector("input[name=size]:checked");
+  const selectedGender = document.querySelector("input[name=gender]:checked");
+  if (selectedSize && selectedGender) {
+    buyButton.disabled = false;
+  } else {
+    buyButton.disabled = true;
+  }
+}
+
+const selectionForm = document.querySelector(".form_orderdetails");
+
+selectionForm.addEventListener("change", checkSections);

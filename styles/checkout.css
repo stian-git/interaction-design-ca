@@ -51,14 +51,14 @@ select {
   display: block;
 }
 
-button:disabled:hover {
+/* button:disabled:hover {
   text-decoration: none;
 }
 button:disabled {
   color: white;
   background-color: #dfdfdf;
   border: 0px;
-}
+} */
 fieldset:nth-child(1) {
   grid-area: form_personal;
 }

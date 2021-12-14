@@ -105,7 +105,7 @@ input[type="radio"] + label {
 input[type="radio"]:checked + label {
   background-color: var(--color_radiobutton_marker_smallscreen);
 }
-input.jacket-cta {
+button.jacket-cta {
   margin-top: 0px;
   cursor: pointer;
 }

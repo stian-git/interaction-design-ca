@@ -395,3 +395,13 @@ ul li {
 .jacket-cta:hover {
   text-decoration: underline;
 }
+
+button:disabled:hover {
+  text-decoration: none;
+  cursor: auto;
+}
+button:disabled {
+  color: white;
+  background-color: #dfdfdf;
+  border: 0px;
+}
