@@ -1,4 +1,4 @@
-const jackets = [
+const allJackets = [
   {
     name: "Warmy Adventure",
     price: 290,

@@ -3,7 +3,7 @@ const params = new URLSearchParams(queryString);
 const jacketId = params.get("id");
 const jacketContainer = document.querySelector(".jacket-details");
 const jacketName = document.querySelector(".jacketname__h1");
-const jacket = jackets.find(({ id }) => id == jacketId);
+const jacket = allJackets.find(({ id }) => id == jacketId);
 
 let thumb1 = jacket.image.replace(".jpg", "-thumb.jpg");
 let thumb2 = jacket.image.replace(".jpg", "-2-thumb.jpg");
