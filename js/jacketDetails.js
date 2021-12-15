@@ -10,6 +10,47 @@ let thumb2 = jacket.image.replace(".jpg", "-2-thumb.jpg");
 let thumb3 = jacket.image.replace(".jpg", "-3-thumb.jpg");
 let thumb4 = jacket.image.replace(".jpg", "-4-thumb.jpg");
 
+//console.log(jacket.sizes);
+let sizeS = "";
+let sizeM = "";
+let sizeL = "";
+let sizeXL = "";
+let sizeXXL = "";
+jacket.sizes.forEach((size) => {
+  //console.log(size);
+  switch (size) {
+    case "S":
+      sizeS = `<input type="radio" name="size" id="size-s" value="size-s" hidden="true"><label for="size-s"><img src="../images/size-s.png" aria-label="Size: S"></label>`;
+      break;
+    case "M":
+      sizeM = `<input type="radio" name="size" id="size-m" value="size-m" hidden="true"><label for="size-m"><img src="../images/size-m.png" aria-label="Size: M"></label>`;
+      break;
+    case "L":
+      sizeL = `<input type="radio" name="size" id="size-l" value="size-l" hidden="true"><label for="size-l"><img src="../images/size-l.png" aria-label="Size: L"></label>`;
+      break;
+    case "XL":
+      sizeXL = `<input type="radio" name="size" id="size-xl" value="size-xl" hidden="true"><label for="size-xl"><img src="../images/size-xl.png" aria-label="Size: XL"></label>`;
+      break;
+    case "XXL":
+      sizeXXL = `<input type="radio" name="size" id="size-xxl" value="size-xxl" hidden="true"><label for="size-xxl"><img src="../images/size-xxl.png" aria-label="Size: XXL"></label>`;
+      break;
+    default:
+      break;
+  }
+});
+
+let genderMale = "";
+let genderFemale = "";
+
+if (jacket.male) {
+  genderMale = `<input type="radio" name="gender" id="male" value="male" hidden="true"><label for="male" class="gender"><p class="required"><img src="../images/outline_male_red_24dp.png"><span class="tooltip_top tooltip_gendertop">Male</span></p></label>`;
+}
+
+if (jacket.female) {
+  genderFemale = `<input type="radio" name="gender" id="female" value="female" hidden="true"><label for="female" class="gender"><p class="required"><img src="../images/outline_female_red_24dp.png"><span class="tooltip_top tooltip_gendertop">Female</span></p></label>`;
+}
+//let sizeS = "<input type="radio" name="size" id="size-s" value="size-s" hidden="true"><label for="size-s"><img src="../images/size-s.png" aria-label="Size: S"></label>";
+
 jacketName.innerHTML = `${jacket.name}`;
 jacketContainer.innerHTML = `<section class="jacketdetails__images">
 
@@ -37,16 +78,16 @@ jacketContainer.innerHTML = `<section class="jacketdetails__images">
   <form action="checkout.html" method="get" class="form_orderdetails">
     <fieldset>
       <legend>Select Gender:</legend>
-      <input type="radio" name="gender" id="female" value="female" hidden="true"><label for="female" class="gender"><p class="required"><img src="../images/outline_female_red_24dp.png"><span class="tooltip_top tooltip_gendertop">Female</span></p></label>
-      <input type="radio" name="gender" id="male" value="male" hidden="true"><label for="male" class="gender"><p class="required"><img src="../images/outline_male_red_24dp.png"><span class="tooltip_top tooltip_gendertop">Male</span></p></label>
+      ${genderFemale}
+      ${genderMale}
     </fieldset>
     <fieldset>
     <legend>Select Size:</legend>
-      <input type="radio" name="size" id="size-s" value="size-s" hidden="true"><label for="size-s"><img src="../images/size-s.png" aria-label="Size: S"></label>
-      <input type="radio" name="size" id="size-m" value="size-m" hidden="true"><label for="size-m"><img src="../images/size-m.png" aria-label="Size: M"></label>
-      <input type="radio" name="size" id="size-l" value="size-l" hidden="true"><label for="size-l"><img src="../images/size-l.png" aria-label="Size: L"></label>
-      <input type="radio" name="size" id="size-xl" value="size-xl" hidden="true"><label for="size-xl"><img src="../images/size-xl.png" aria-label="Size: XL"></label>
-      <input type="radio" name="size" id="size-xxl" value="size-xxl" hidden="true"><label for="size-xxl"><img src="../images/size-xxl.png" aria-label="Size: XXL"></label>
+      ${sizeS}
+      ${sizeM}
+      ${sizeL}
+      ${sizeXL}
+      ${sizeXXL}
     </fieldset>
     <p class="product-specific__price">${jacket.price} EUR</p>
     <input type="hidden" value="${jacketId}" id="id" name="id">
@@ -76,9 +117,28 @@ const buyButton = document.querySelector("button[type=submit]");
 //console.log(buyButton);
 buyButton.disabled = true;
 
+function addToBasket(event) {
+  event.preventDefault();
+  //console.log("Adding item to basket");
+  //console.log("JacketID: " + jacketId);
+  //console.log(selectedSize.value + " - " + selectedGender.value);
+  // + itemCount = 1
+  //let jacketData = [jacketId, selectedSize.value, selectedGender.value, 1];
+  let jacketData2 = [jacketId, selectedSize.value, selectedGender.value, 1];
+  //console.log(jacketData);
+  //console.log(jacketData2);
+  //storage.setItem("Jackets", jacketData);
+  storage.setItem("Jacket-" + jacketId, jacketData2);
+  console.log(storage.getItem("Jacket-" + jacketId));
+}
+buyButton.addEventListener("click", addToBasket);
+
+let selectedSize;
+let selectedGender;
+
 function checkSections() {
-  const selectedSize = document.querySelector("input[name=size]:checked");
-  const selectedGender = document.querySelector("input[name=gender]:checked");
+  selectedSize = document.querySelector("input[name=size]:checked");
+  selectedGender = document.querySelector("input[name=gender]:checked");
   if (selectedSize && selectedGender) {
     buyButton.disabled = false;
   } else {
@@ -89,3 +149,11 @@ function checkSections() {
 const selectionForm = document.querySelector(".form_orderdetails");
 
 selectionForm.addEventListener("change", checkSections);
+
+// if there is only one gender, we select it by default.
+
+//let numberofGenders = jacket.male + jacket.female;
+
+if (!(jacket.male == jacket.female)) {
+  document.querySelector("input[name=gender]").checked = true;
+}

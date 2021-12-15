@@ -10,9 +10,9 @@ const jackets = [
     male: true,
     female: true,
     rating: 5,
+    sizes: ["S", "M", "L", "XL", "XXL"],
     reviewer: "John Doe, Oslo",
-    reviewtext:
-      "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
+    reviewtext: "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
   },
   {
     name: "Winter Spring",
@@ -22,12 +22,12 @@ const jackets = [
     description: "Swedish Coat: Gets you out of the comfort zone.",
     featured: true,
     sales: false,
-    male: false,
-    female: true,
+    male: true,
+    female: false,
     rating: 4,
+    sizes: ["S", "M", "L", "XL"],
     reviewer: "John Doe, Oslo",
-    reviewtext:
-      "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
+    reviewtext: "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
   },
   {
     name: "NoCold Today",
@@ -40,9 +40,9 @@ const jackets = [
     male: true,
     female: true,
     rating: 4,
+    sizes: ["M", "L", "XL", "XXL"],
     reviewer: "John Doe, Oslo",
-    reviewtext:
-      "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
+    reviewtext: "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
   },
   {
     name: "Nordic Extreme",
@@ -55,9 +55,9 @@ const jackets = [
     male: false,
     female: true,
     rating: 5,
+    sizes: ["S", "M", "L"],
     reviewer: "John Doe, Oslo",
-    reviewtext:
-      "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
+    reviewtext: "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
   },
   {
     name: "Sunshine Ahead",
@@ -70,9 +70,9 @@ const jackets = [
     male: false,
     female: true,
     rating: 3,
+    sizes: ["S", "M", "L"],
     reviewer: "John Doe, Oslo",
-    reviewtext:
-      "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
+    reviewtext: "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
   },
   {
     name: "Sheep Alike",
@@ -85,8 +85,8 @@ const jackets = [
     male: false,
     female: true,
     rating: 2,
+    sizes: ["S", "M", "L", "XL"],
     reviewer: "John Doe, Oslo",
-    reviewtext:
-      "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
+    reviewtext: "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
   },
 ];

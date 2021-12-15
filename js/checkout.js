@@ -208,3 +208,20 @@ checkOutForm.addEventListener("change", checkAllFields);
 // }
 
 // checkOutForm.addEventListener("submit", validateForm);
+function getJacketsInBasket() {
+  console.log("Runs on load");
+  // for (let i = 0; i < jackets.length; i++) {
+  //   let id = storage.getItem("Jacket-" + jackets[i].id);
+  //   if (id) {
+  //     console.log(id);
+  //   }
+  storage.forEach((element) => {
+    console.log(element);
+  });
+
+  //console.log(jacket.id);
+
+  //console.log(storage.getItem("Jacket-" + jacket.id));
+}
+
+getJacketsInBasket();
