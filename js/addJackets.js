@@ -1,5 +1,17 @@
+const searchQuery = document.location.search;
+const searchParams = new URLSearchParams(searchQuery);
+
+const searchString = searchParams.get("q");
+//console.log(searchString);
+
 const jacketsContainer = document.querySelector(".main__jacketlist");
+const searchField = document.querySelector("input[type=search]");
+
+//let defaultJacketArray = allJackets;
+let currentJacketArray = allJackets;
+
 let jackets;
+// is jackets-variable absolete? (replace with currentJacketArray?)
 
 function showJackets(filteredArr) {
   jacketsContainer.innerHTML = "";
@@ -51,29 +63,29 @@ function showJackets(filteredArr) {
   </a>`;
   }
 }
-showJackets();
+//showJackets();
 
-function genderFilter(gender) {
+function genderFilter(gender, arr = allJackets) {
   //console.log("Male-filter: " + gender);
   let result = [];
 
   // What if we want both?
   if (gender == "male") {
-    for (let i = 0; i < jackets.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       //console.log(jackets[i].id);
-      if (jackets[i].male == true) {
-        result.push(jackets[i]);
+      if (arr[i].male == true) {
+        result.push(arr[i]);
       }
     }
   } else {
-    for (let j = 0; j < jackets.length; j++) {
-      if (jackets[j].female == true) {
-        result.push(jackets[j]);
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[j].female == true) {
+        result.push(arr[j]);
       }
     }
   }
-  showJackets(result);
-  //return result;
+  //showJackets(result);
+  return result;
 }
 
 function clearFilter() {
@@ -83,9 +95,11 @@ function clearFilter() {
 
 //genderFilter("male");
 
-function sizeFilter(sizes) {
+function sizeFilter(sizes, arr = allJackets) {
+  //console.log(sizes);
+  //console.log(arr);
   let result = [];
-  jackets.forEach((element) => {
+  arr.forEach((element) => {
     // Adds - to create a unique syntax.
     let sizeString = "-" + element.sizes.join("-") + "-";
     //console.log(element.sizes.join("-"));
@@ -95,35 +109,105 @@ function sizeFilter(sizes) {
       //console.log("Looking for: " + sizes[k]);
       //console.log(sizeMatch);
       if (sizeMatch >= 0) {
-        console.log(sizeMatch);
+        //console.log(sizeMatch);
         result.push(element);
         break;
       }
     }
   });
-  console.log(result);
-  showJackets(result);
+  //console.log(result);
+  //showJackets(result);
+  return result;
 }
 //sizeFilter(["XL"]);
 //sizeFilter(["S","M"])
 
 // Create a function and eventlistener that combines the two filters each time it`s changed.
 // filter-field: Gender(radio), Size(checkbox), ClearFilter.
+
 function searchProducts(str, arr = allJackets) {
-  console.log(arr);
-  let searchResult = [];
-  arr.forEach((jacket) => {
-    let jacketName = jacket.name.toLocaleLowerCase();
-    let searchMatch = jacketName.search(str.toLocaleLowerCase());
-    if (searchMatch >= 0) {
-      console.log("Match: " + jacket.name);
-      //console.log(arr[i]);
-      searchResult.push(jacket);
-      //console.log(searchResult);
+  console.log("searching for " + str);
+  let result = [];
+  //let array = allJackets;
+  for (let i = 0; i < arr.length; i++) {
+    //console.log(array[i].name);
+    console.log(arr[i].name.toLocaleLowerCase());
+    console.log("Search-Found: " + arr[i].name.toLocaleLowerCase().search(str.toLocaleLowerCase()));
+    if (arr[i].name.toLocaleLowerCase().search(str.toLocaleLowerCase()) >= 0) {
+      console.log("Match: " + arr[i].name);
+      result.push(arr[i]);
     }
-  });
-  console.log(searchResult);
-  //return searchResult;
+  }
+
+  if (result.length === 0) {
+    console.log("No jackets matching your search");
+    // Add something to visualize there are no matches.
+  }
+  console.log(result);
+  return result;
 }
 
-searchProducts("al");
+//searchProducts("ali");
+
+//
+if (!searchString) {
+  showJackets();
+  console.log("No search query");
+} else {
+  showJackets(searchProducts(searchString));
+  console.log("Will show results for: " + searchString);
+  searchField.value = searchString;
+}
+
+const productFilter = document.querySelector(".filter-container form");
+//const searchField = document.querySelector("input[type=search]");
+
+function updateProductWithFilters() {
+  // Search field.
+  currentJacketArray = allJackets;
+  console.log("Before any changes are made");
+  console.log(currentJacketArray);
+  if (!searchField.value == "") {
+    console.log("Searchfield is not empty");
+    currentJacketArray = searchProducts(searchField.value);
+  }
+  console.log("After search-filter");
+  console.log(currentJacketArray);
+
+  // Gender next
+  //console.log(document.querySelector("input[name=gender]:checked").value);
+  let selectedGender = document.querySelector("input[name=gender]:checked").value;
+  console.log("Gender: " + selectedGender);
+  if (selectedGender != "both") {
+    console.log("Filtering Genders!");
+    currentJacketArray = genderFilter(selectedGender, currentJacketArray);
+  }
+
+  //console.log("After genderFilter");
+  console.log(currentJacketArray);
+  // Sizes last
+  let sizes = [];
+  const sizeBoxes = document.querySelectorAll(".filter-container input[type=checkbox]");
+  console.log(sizeBoxes.length);
+
+  sizeBoxes.forEach((size) => {
+    if (size.checked) {
+      console.log("Checked: " + size.value);
+      sizes.push(size.value);
+    }
+    //console.log(size.checked);
+  });
+
+  if (sizes.length != 0) {
+    console.log("Sizes selected: " + sizes.length);
+    currentJacketArray = sizeFilter(sizes, currentJacketArray);
+  }
+  // console.log("Array to be sent to sizeFilter");
+  // console.log(currentJacketArray);
+
+  // console.log("Sizes:");
+  // console.log(currentJacketArray);
+  showJackets(currentJacketArray);
+}
+
+productFilter.addEventListener("change", updateProductWithFilters);

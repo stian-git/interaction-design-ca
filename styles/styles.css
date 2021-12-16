@@ -249,15 +249,23 @@ aside {
   text-align: center;
 }
 
-.aside__search-container {
-  display: inline-flexbox;
-  position: relative;
-  flex-flow: column;
+.aside__container {
   background-color: var(--color_nav);
-  border-radius: 25px;
-  height: 3.5em;
+  position: relative;
   width: 23em;
   border: 1px solid var(--color_border);
+  /* Check below settings (moved from aside__search-container */
+  position: relative;
+  display: inline-flexbox;
+  border-radius: 25px;
+}
+
+.aside__search {
+  flex-flow: column;
+  //border-radius: 25px;
+  height: 3.5em;
+}
+.aside__search-container {
 }
 
 .aside__scalefix {
@@ -278,8 +286,9 @@ aside {
 
 .aside__search-field {
   position: relative;
-  display: inline-flex;
+  display: flex;
   top: 6px;
+  justify-content: center;
 }
 input[type="search"] {
   background-color: var(--color_texture_bg);
@@ -408,4 +417,56 @@ button:disabled {
   color: white;
   background-color: #dfdfdf;
   border: 0px;
+}
+
+.filter-container {
+  margin-top: 5px;
+}
+
+.filter-container p {
+  text-align: left;
+  font-size: 1em;
+  font-family: var(--font-header), Oswald, Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0px;
+}
+
+.filter-container label {
+  font-size: 0.8em;
+}
+fieldset {
+  border: none;
+}
+
+fieldset .filter_gender {
+  display: flex;
+  margin: 3px 100px;
+}
+
+.filter_gender label {
+  margin-left: 3px;
+}
+
+.filter-container input[type="checkbox"] {
+  position: relative;
+  top: 2px;
+  right: 4px;
+}
+
+.aside__search-field button {
+  display: inline-flex;
+  margin-left: 1em;
+  height: 38px;
+  width: 38px;
+  padding: 4px;
+  background: url(../images/icon_search-button.png);
+  align-content: center;
+  cursor: pointer;
+  background-size: cover;
+  border: 3px solid var(--color_nav);
+  border-radius: 50%;
+}
+
+.aside__search-field button:hover {
+  background-size: cover;
+  border: 3px solid var(--color_cta_product_nonsale);
 }

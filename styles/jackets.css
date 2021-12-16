@@ -15,6 +15,7 @@
   padding: 5%;
   text-align: center;
   //color: black;
+  max-height: 400px;
 }
 
 .image_container img {

@@ -77,29 +77,42 @@
     </header>
     <aside>
       <div class="aside__scalefix"></div>
-      <div class="aside__search-container">
-        <form action="https://www.google.com/search" method="get" class="aside__search-field">
+      <div class="aside__search-container aside__search aside__container">
+        <form action="jackets.html" method="get" class="aside__search-field">
           <input type="search" name="q" id="searchfield" placeholder=" Product Search" title="Search field" />
-          <input
-            type="image"
-            src="images/icon_search-button.png"
-            hover="images/icon_search-button-hover.png"
-            aria-label="Start search-button"
-            value="search"
-            title="Search-button"
-          />
+          <button type="submit"></button>
         </form>
       </div>
-      <!-- <div class="filter-container">
-        <label for="gender">Gender</label>
-        <input type="radio" name="gender" id="male" value="male" hidden="true" />
-        <label for="male" class="gender">
-          <p class="required">
-            <img src="../images/outline_male_red_24dp.png" />
-            <span class="tooltip_top tooltip_gendertop">Male</span>
-          </p>
-        </label>
-      </div> -->
+      <div class="filter-container aside__container">
+        <form action="">
+          <fieldset>
+            <p>Gender:</p>
+            <div class="filter_gender">
+              <input type="radio" name="gender" id="female" value="female" />
+              <label for="female" class="filter">Female</label>
+            </div>
+            <div class="filter_gender">
+              <input type="radio" name="gender" id="male" value="male" />
+              <label for="male" class="filter">Male</label>
+            </div>
+            <div class="filter_gender">
+              <input type="radio" name="gender" id="both" value="both" checked />
+              <label for="both" class="filter">Both</label>
+            </div>
+            <p>Sizes:</p>
+            <label for="size-s" class="filter">S</label>
+            <input type="checkbox" name="size-s" id="size-s" value="S" />
+            <label for="size-m" class="filter">M</label>
+            <input type="checkbox" name="size-m" id="size-m" value="M" />
+            <label for="size-l" class="filter">L</label>
+            <input type="checkbox" name="size-l" id="size-l" value="L" />
+            <label for="size-xl" class="filter">XL</label>
+            <input type="checkbox" name="size-xl" id="size-xl" value="XL" />
+            <label for="size-xxl" class="filter">XXL</label>
+            <input type="checkbox" name="size-xxl" id="size-xxl" value="XXL" />
+          </fieldset>
+        </form>
+      </div>
       <div class="aside__scalefix"></div>
       <div class="banner_container">
         <a href="" alt="Banner Image" title="Banner Image">

@@ -61,10 +61,19 @@
     margin: 40px 10px 0px 20px;
   }
 
-  .aside__search-container {
+  .aside__container {
     display: flex;
     width: 25.8em;
   }
+
+  .aside__search-field button {
+    margin-left: 5em;
+  }
+
+  /* .aside__search-container {
+    display: flex;
+    width: 25.8em;
+  } */
 
   .banner_image {
     width: 25.8em;
@@ -196,8 +205,8 @@
   .placeorder_container button {
     width: 170px;
   }
-  fieldset:nth-child(1) input,
-  fieldset:nth-child(3) input {
+  .checkoutDetails fieldset:nth-child(1) input,
+  .checkoutDetails fieldset:nth-child(3) input {
     width: 170px;
   }
   /* Terms */
@@ -347,8 +356,8 @@
   .placeorder_container button {
     width: 195px;
   }
-  fieldset:nth-child(1) input,
-  fieldset:nth-child(3) input {
+  .checkoutDetails fieldset:nth-child(1) input,
+  .checkoutDetails fieldset:nth-child(3) input {
     width: 195px;
   }
 
