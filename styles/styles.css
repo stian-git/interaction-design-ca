@@ -259,7 +259,7 @@ aside {
   flex-flow: column;
   min-height: 518.16px;
   grid-area: grid_aside;
-  text-align: center;
+  text-align: -webkit-center;
 }
 
 .aside__container {
@@ -268,8 +268,7 @@ aside {
   width: 23em;
   border: 1px solid var(--color_border);
   /* Check below settings (moved from aside__search-container */
-  position: relative;
-  display: inline-flexbox;
+  display: block;
   border-radius: 25px;
 }
 
