@@ -10,19 +10,27 @@ const searchField = document.querySelector("input[type=search]");
 //let defaultJacketArray = allJackets;
 let currentJacketArray = allJackets;
 
-let jackets;
+//let jackets;
 // is jackets-variable absolete? (replace with currentJacketArray?)
 
-function showJackets(filteredArr) {
+function showJackets(arr = allJackets) {
   jacketsContainer.innerHTML = "";
-  if (filteredArr) {
-    jackets = filteredArr;
-    console.log("Using provided Array");
-  } else {
-    jackets = allJackets;
-    //console.log(allJackets);
-    console.log("Using default Array");
+  jackets = arr;
+  if (jackets.length == 0) {
+    console.log("There are no jackets to show");
+    jacketsContainer.innerHTML = `<div class="error nojacketstoshow">
+                                      <p>0 jackets are currently matching your search and/or filter.</p>
+                                      <p>Please modify your filter or clear the search field to resume</>
+                                  </div>`;
   }
+  // if (arr) {
+  //   jackets = arr;
+  //   console.log("Using provided Array");
+  // } else {
+  //   jackets = allJackets;
+  //   //console.log(allJackets);
+  //   console.log("Using default Array");
+  // }
   for (var i = 0; i < jackets.length; i++) {
     //let productLink = `<a href="jacketdetails.html?id=${jackets[i].id}" class="jacket-cta" title="${jackets[i].name}">View</a>`;
     let productLink = `<p class="jacket-cta" title="${jackets[i].name}">View</p>`;
@@ -66,13 +74,9 @@ function showJackets(filteredArr) {
 //showJackets();
 
 function genderFilter(gender, arr = allJackets) {
-  //console.log("Male-filter: " + gender);
   let result = [];
-
-  // What if we want both?
   if (gender == "male") {
     for (let i = 0; i < arr.length; i++) {
-      //console.log(jackets[i].id);
       if (arr[i].male == true) {
         result.push(arr[i]);
       }
@@ -84,130 +88,103 @@ function genderFilter(gender, arr = allJackets) {
       }
     }
   }
-  //showJackets(result);
   return result;
 }
 
 function clearFilter() {
-  jackets = allJackets;
-  showJackets(allJackets);
+  currentJacketArray = allJackets;
+  showJackets(currentJacketArray);
 }
 
 //genderFilter("male");
 
 function sizeFilter(sizes, arr = allJackets) {
-  //console.log(sizes);
-  //console.log(arr);
   let result = [];
   arr.forEach((element) => {
     // Adds - to create a unique syntax.
     let sizeString = "-" + element.sizes.join("-") + "-";
-    //console.log(element.sizes.join("-"));
-    //console.log(sizeString);
     for (let k = 0; k < sizes.length; k++) {
       let sizeMatch = sizeString.search("-" + sizes[k] + "-");
-      //console.log("Looking for: " + sizes[k]);
-      //console.log(sizeMatch);
       if (sizeMatch >= 0) {
-        //console.log(sizeMatch);
         result.push(element);
         break;
       }
     }
   });
-  //console.log(result);
-  //showJackets(result);
+
   return result;
 }
-//sizeFilter(["XL"]);
-//sizeFilter(["S","M"])
 
-// Create a function and eventlistener that combines the two filters each time it`s changed.
-// filter-field: Gender(radio), Size(checkbox), ClearFilter.
+//Example: sizeFilter(["S","M"])
 
 function searchProducts(str, arr = allJackets) {
-  console.log("searching for " + str);
+  //console.log("searching for " + str);
   let result = [];
-  //let array = allJackets;
   for (let i = 0; i < arr.length; i++) {
-    //console.log(array[i].name);
-    console.log(arr[i].name.toLocaleLowerCase());
-    console.log("Search-Found: " + arr[i].name.toLocaleLowerCase().search(str.toLocaleLowerCase()));
     if (arr[i].name.toLocaleLowerCase().search(str.toLocaleLowerCase()) >= 0) {
-      console.log("Match: " + arr[i].name);
+      //console.log("Match: " + arr[i].name);
       result.push(arr[i]);
     }
   }
-
-  if (result.length === 0) {
-    console.log("No jackets matching your search");
-    // Add something to visualize there are no matches.
-  }
-  console.log(result);
+  //console.log(result);
   return result;
 }
 
-//searchProducts("ali");
+//Example: searchProducts("ali");
 
 //
 if (!searchString) {
   showJackets();
-  console.log("No search query");
+  //console.log("No search query");
 } else {
   showJackets(searchProducts(searchString));
-  console.log("Will show results for: " + searchString);
+  //console.log("Will show results for: " + searchString);
   searchField.value = searchString;
 }
 
 const productFilter = document.querySelector(".filter-container form");
-//const searchField = document.querySelector("input[type=search]");
 
 function updateProductWithFilters() {
   // Search field.
   currentJacketArray = allJackets;
-  console.log("Before any changes are made");
-  console.log(currentJacketArray);
+  //console.log("Before any changes are made");
+  //console.log(currentJacketArray);
   if (!searchField.value == "") {
-    console.log("Searchfield is not empty");
+    //console.log("Searchfield is not empty");
     currentJacketArray = searchProducts(searchField.value);
   }
-  console.log("After search-filter");
-  console.log(currentJacketArray);
+  //console.log("After search-filter");
+  //console.log(currentJacketArray);
 
   // Gender next
-  //console.log(document.querySelector("input[name=gender]:checked").value);
   let selectedGender = document.querySelector("input[name=gender]:checked").value;
-  console.log("Gender: " + selectedGender);
+  //console.log("Gender: " + selectedGender);
   if (selectedGender != "both") {
-    console.log("Filtering Genders!");
+    //console.log("Filtering Genders!");
     currentJacketArray = genderFilter(selectedGender, currentJacketArray);
   }
 
-  //console.log("After genderFilter");
-  console.log(currentJacketArray);
+  //console.log(currentJacketArray);
   // Sizes last
   let sizes = [];
   const sizeBoxes = document.querySelectorAll(".filter-container input[type=checkbox]");
-  console.log(sizeBoxes.length);
+  //console.log(sizeBoxes.length);
 
   sizeBoxes.forEach((size) => {
     if (size.checked) {
-      console.log("Checked: " + size.value);
+      //console.log("Checked: " + size.value);
       sizes.push(size.value);
     }
-    //console.log(size.checked);
   });
 
   if (sizes.length != 0) {
-    console.log("Sizes selected: " + sizes.length);
+    //console.log("Sizes selected: " + sizes.length);
     currentJacketArray = sizeFilter(sizes, currentJacketArray);
   }
-  // console.log("Array to be sent to sizeFilter");
-  // console.log(currentJacketArray);
 
-  // console.log("Sizes:");
-  // console.log(currentJacketArray);
   showJackets(currentJacketArray);
 }
 
 productFilter.addEventListener("change", updateProductWithFilters);
+
+searchField.addEventListener("keyup", updateProductWithFilters);
