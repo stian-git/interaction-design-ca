@@ -104,8 +104,26 @@ function sizeFilter(sizes) {
   console.log(result);
   showJackets(result);
 }
-sizeFilter(["XL"]);
+//sizeFilter(["XL"]);
 //sizeFilter(["S","M"])
 
-// Create a function and eventlistener that combines the two filters each time.
+// Create a function and eventlistener that combines the two filters each time it`s changed.
 // filter-field: Gender(radio), Size(checkbox), ClearFilter.
+function searchProducts(str, arr = allJackets) {
+  console.log(arr);
+  let searchResult = [];
+  arr.forEach((jacket) => {
+    let jacketName = jacket.name.toLocaleLowerCase();
+    let searchMatch = jacketName.search(str.toLocaleLowerCase());
+    if (searchMatch >= 0) {
+      console.log("Match: " + jacket.name);
+      //console.log(arr[i]);
+      searchResult.push(jacket);
+      //console.log(searchResult);
+    }
+  });
+  console.log(searchResult);
+  //return searchResult;
+}
+
+searchProducts("al");
