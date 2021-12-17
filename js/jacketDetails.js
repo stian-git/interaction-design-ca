@@ -118,7 +118,38 @@ jacketContainer.innerHTML = `<section class="jacketdetails__images">
   <p class="reviewername">${jacket.reviewer}</p>
 </section>`;
 
-const buyButton = document.querySelector("button[type=submit]");
+// if there is only one gender, we select it by default.
+
+if (!(jacket.male == jacket.female)) {
+  document.querySelector("input[name=gender]").checked = true;
+}
+
+// Change image to show.
+function changeProductImage(newImg) {
+  const mainImageContainer = document.querySelector(".product-image");
+  let nextImg;
+  switch (newImg) {
+    case 1:
+      nextImg = img1;
+      break;
+    case 2:
+      nextImg = img2;
+      break;
+    case 3:
+      nextImg = img3;
+      break;
+    case 4:
+      nextImg = img4;
+      break;
+    default:
+      break;
+  }
+  mainImageContainer.src = nextImg;
+  // Below line is to make the page recover if the selected img is missing.
+  mainImageContainer.style.display = "block";
+}
+
+const buyButton = document.querySelector("button[type=submit].jacket-cta");
 //console.log(buyButton);
 buyButton.disabled = true;
 
@@ -154,34 +185,3 @@ function checkSections() {
 const selectionForm = document.querySelector(".form_orderdetails");
 
 selectionForm.addEventListener("change", checkSections);
-
-// if there is only one gender, we select it by default.
-
-if (!(jacket.male == jacket.female)) {
-  document.querySelector("input[name=gender]").checked = true;
-}
-
-// Change image to show.
-function changeProductImage(newImg) {
-  const mainImageContainer = document.querySelector(".product-image");
-  let nextImg;
-  switch (newImg) {
-    case 1:
-      nextImg = img1;
-      break;
-    case 2:
-      nextImg = img2;
-      break;
-    case 3:
-      nextImg = img3;
-      break;
-    case 4:
-      nextImg = img4;
-      break;
-    default:
-      break;
-  }
-  mainImageContainer.src = nextImg;
-  // Below line is to make the page recover if the selected img is missing.
-  mainImageContainer.style.display = "block";
-}
