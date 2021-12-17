@@ -348,9 +348,9 @@ function displayBasketItem(item) {
     <p class="basket_productname">${item.name}</p>
   </td>
   <td>
-    <img src="./images/PlusButton.png" class="basket_navbutton addbutton arrId-${item.basketArrayIndex}" aria-label="Add 1" title="Add 1" />
+  <img src="./images/MinusButton.png" class="basket_navbutton subtractbutton arrId-${item.basketArrayIndex}" aria-label="Subtract 1" title="Subtract 1" />  
     <p class="basket_qty" aria-label="Current quantity">${item.qty}</p>
-    <img src="./images/MinusButton.png" class="basket_navbutton subtractbutton arrId-${item.basketArrayIndex}" aria-label="Subtract 1" title="Subtract 1" />
+    <img src="./images/PlusButton.png" class="basket_navbutton addbutton arrId-${item.basketArrayIndex}" aria-label="Add 1" title="Add 1" />  
   </td>
   <td>${item.price}</td>
   <td>
@@ -455,7 +455,7 @@ function checkForReload() {
     email.value = storage.getItem("Mail");
     phone.value = storage.getItem("Phone");
     addressLine1.value = storage.getItem("Address1");
-    addressLine1.value = storage.getItem("Address2");
+    addressLine2.value = storage.getItem("Address2");
     zip.value = storage.getItem("Zip");
     city.value = storage.getItem("City");
     country.value = storage.getItem("Country");
