@@ -149,26 +149,6 @@ function changeProductImage(newImg) {
   mainImageContainer.style.display = "block";
 }
 
-const buyButton = document.querySelector("button[type=submit].jacket-cta");
-//console.log(buyButton);
-buyButton.disabled = true;
-
-function addToBasket(event) {
-  event.preventDefault();
-  //console.log("Adding item to basket");
-  //console.log("JacketID: " + jacketId);
-  //console.log(selectedSize.value + " - " + selectedGender.value);
-  // + itemCount = 1
-  //let jacketData = [jacketId, selectedSize.value, selectedGender.value, 1];
-  let jacketData2 = [jacketId, selectedSize.value, selectedGender.value, 1];
-  //console.log(jacketData);
-  //console.log(jacketData2);
-  //storage.setItem("Jackets", jacketData);
-  storage.setItem("Jacket-" + jacketId, jacketData2);
-  console.log(storage.getItem("Jacket-" + jacketId));
-}
-buyButton.addEventListener("click", addToBasket);
-
 let selectedSize;
 let selectedGender;
 
@@ -185,3 +165,103 @@ function checkSections() {
 const selectionForm = document.querySelector(".form_orderdetails");
 
 selectionForm.addEventListener("change", checkSections);
+
+// Buy and basket functions:
+
+const buyButton = document.querySelector("button[type=submit].jacket-cta");
+//console.log(buyButton);
+buyButton.disabled = true;
+
+function addToBasket(event) {
+  event.preventDefault();
+
+  //let jacketData = [jacketId, selectedSize.value, selectedGender.value, 1];
+  let jacketData = `${jacketId},${selectedSize.value},${selectedGender.value},1`;
+  console.log("Adding: " + jacketData);
+  addToStorage(jacketData);
+  //storage.setItem("Basket", jacketData2 + ";");
+  //console.log(storage.getItem("Basket"));
+  updateBasketItemCount();
+}
+buyButton.addEventListener("click", addToBasket);
+
+function addToStorage(str) {
+  //already in basket?
+  console.log("AddToStorage: " + str + "(" + typeof str + ")");
+
+  let currentBasket = [];
+  if (storage.getItem("Basket")) {
+    //str = toString(str);
+    currentBasket = storage.getItem("Basket").split(";");
+    //console.log(typeof str);
+    //console.log("Sending: " + str + "(" + typeof str + ")");
+    let duplicateCheckResult = alreadyInBasket(str, currentBasket);
+    if (typeof duplicateCheckResult == "object") {
+      //console.log("We have an object");
+      console.log(duplicateCheckResult);
+    }
+    if (duplicateCheckResult == false) {
+      //console.log("We have a boolean = no duplicate");
+      currentBasket.push(str);
+    }
+    //console.log(typeof duplicateCheckResult);
+    //console.log("Old storage is: ");
+    //console.log(currentBasket);
+
+    storage.setItem("Basket", currentBasket.join(";"));
+    //console.log("New storage is: " + currentBasket.join(";"));
+    //console.log(currentBasket);
+  } else {
+    //console.log("New storage added to empty basket: " + str);
+    storage.setItem("Basket", str);
+  }
+  //console.log(storage.getItem("Basket"));
+
+  //console.log("New basket: " + storage.getItem("Basket"));
+}
+
+function removeFromStorage(str) {}
+
+function alreadyInBasket(str, basketArray) {
+  let trimmedSearchString = str.match(/(.*)le/)[0];
+  console.log("Trimmed: " + trimmedSearchString);
+  console.log(basketArray);
+  let match;
+  for (let i = 0; i < basketArray.length; i++) {
+    console.log("Searching for: " + trimmedSearchString);
+    console.log("in this string: " + basketArray[i]);
+    match = basketArray[i].search(trimmedSearchString);
+    console.log(match + " : 0 or higher = match");
+    if (match >= 0) {
+      console.log("Item exists, we will add one more to the existing one");
+      basketArray = addOrRemoveFromBasket(1, basketArray, i);
+      // stop iterating on first match:
+      return basketArray;
+    }
+  }
+  return false;
+  //console.log(str.search(regex));
+  // regex; (.*)le = 1,size-l,fema / 1,size-l,ma
+}
+
+function addOrRemoveFromBasket(num, arr, arridx) {
+  console.log("We will add " + num + " to this: " + arr[arridx]);
+  let oldItemData = arr[arridx];
+  let oldItemCount = Number(oldItemData.match(/\w+$/)[0]);
+  //console.log("Old counter: " + oldItemCount);
+  let newItemCount = oldItemCount + num;
+  //console.log(newItemCount);
+  let newItemData = oldItemData.replace("," + oldItemCount, "," + newItemCount);
+  //console.log(newItemData);
+  arr[arridx] = newItemData;
+  //console.log("New Basket Array:");
+  //console.log(arr);
+  storage.setItem("Basket", arr.join(";"));
+  //console.log("Storage is now: ");
+  //console.log(storage.getItem("Basket"));
+  //return newItemData;
+  return arr;
+}
+
+// currentBasket = storage.getItem("Basket").split(";");
+// addOrRemoveFromBasket(1, currentBasket, [0]);
