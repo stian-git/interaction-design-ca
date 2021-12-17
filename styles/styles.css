@@ -432,37 +432,8 @@ button:disabled {
   border: 0px;
 }
 
-.filter-container {
-  margin-top: 5px;
-}
-
-.filter-container p {
-  text-align: left;
-  font-size: 1em;
-  font-family: var(--font-header), Oswald, Verdana, Geneva, Tahoma, sans-serif;
-  margin: 0px;
-}
-
-.filter-container label {
-  font-size: 0.8em;
-}
 fieldset {
   border: none;
-}
-
-fieldset .filter_gender {
-  display: flex;
-  margin: 3px 100px;
-}
-
-.filter_gender label {
-  margin-left: 3px;
-}
-
-.filter-container input[type="checkbox"] {
-  position: relative;
-  top: 2px;
-  right: 4px;
 }
 
 /* Move the below to the correct place in the CSS */

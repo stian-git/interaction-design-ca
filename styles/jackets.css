@@ -88,3 +88,58 @@
 .jacketsale {
   background-color: var(--color_cta_product_sale);
 }
+
+/* moves from styles.css*/
+.filter-container {
+  margin-top: 5px;
+}
+
+.filter-container p {
+  text-align: left;
+  font-size: 1em;
+  font-family: var(--font-header), Oswald, Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0px;
+}
+
+.filter-container label {
+  font-size: 0.8em;
+}
+
+.filter_gender label {
+  margin-left: 3px;
+}
+
+.filter-container input[type="checkbox"] {
+  position: relative;
+  top: 2px;
+  right: 4px;
+}
+
+fieldset .filter_gender {
+  display: flex;
+  margin: 3px 100px;
+}
+
+.filter-container form {
+  display: inline-flex;
+}
+
+.filterinfo {
+  align-self: center;
+}
+
+#filter_tooltip {
+  background-color: var(--color_texture_bg);
+  color: black;
+  border: 1px solid black;
+  padding: 5px;
+  position: inherit;
+  display: block;
+  top: 4px;
+}
+
+.fa-info-circle {
+  color: var(--color_tooltip);
+  display: block;
+  font-size: 3em;
+}
