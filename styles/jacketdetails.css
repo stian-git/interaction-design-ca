@@ -74,6 +74,10 @@
   margin: 0px 5% 5% 5%;
 }
 
+.thumbimage {
+  cursor: pointer;
+  background: currentColor;
+}
 /* Gender Form */
 .form_orderdetails {
   border: 2px solid black;

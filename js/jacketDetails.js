@@ -5,10 +5,15 @@ const jacketContainer = document.querySelector(".jacket-details");
 const jacketName = document.querySelector(".jacketname__h1");
 const jacket = allJackets.find(({ id }) => id == jacketId);
 
-let thumb1 = jacket.image.replace(".jpg", "-thumb.jpg");
-let thumb2 = jacket.image.replace(".jpg", "-2-thumb.jpg");
-let thumb3 = jacket.image.replace(".jpg", "-3-thumb.jpg");
-let thumb4 = jacket.image.replace(".jpg", "-4-thumb.jpg");
+const img1 = jacket.image;
+const img2 = jacket.image.replace(".jpg", "-2.jpg");
+const img3 = jacket.image.replace(".jpg", "-3.jpg");
+const img4 = jacket.image.replace(".jpg", "-4.jpg");
+//console.log(img4);
+const thumb1 = jacket.image.replace(".jpg", "-thumb.jpg");
+const thumb2 = jacket.image.replace(".jpg", "-2-thumb.jpg");
+const thumb3 = jacket.image.replace(".jpg", "-3-thumb.jpg");
+const thumb4 = jacket.image.replace(".jpg", "-4-thumb.jpg");
 
 //console.log(jacket.sizes);
 let sizeS = "";
@@ -54,19 +59,19 @@ if (jacket.female) {
 jacketName.innerHTML = `${jacket.name}`;
 jacketContainer.innerHTML = `<section class="jacketdetails__images">
 
-<img src="${jacket.image}" alt="${jacket.name}" class="product-image" title="${jacket.name}" />
+<img src="${jacket.image}" alt="${jacket.name}" class="product-image" title="${jacket.name}" onerror="this.style.display='none'"/>
 <div class="product-image_thumbnails">
 <div>
-    <img src="${thumb1}" alt="${jacket.name}-1" title="Thumb 1, ${jacket.name}" onerror="this.style.display='none'"/>
+    <img src="${thumb1}" alt="${jacket.name}-1" title="Thumb 1, ${jacket.name}" class="thumbimage" onclick="changeProductImage(1)" onerror="this.style.display='none'"/>
   </div>
   <div>
-  <img src="${thumb2}" alt="${jacket.name}-2" title="Thumb 2, ${jacket.name}" onerror="this.style.display='none'"/>
+  <img src="${thumb2}" alt="${jacket.name}-2" title="Thumb 2, ${jacket.name}" class="thumbimage" onclick="changeProductImage(2)" onerror="this.style.display='none'"/>
   </div>
   <div>
-    <img src="${thumb3}" alt="${jacket.name}-3" title="Thumb 3, ${jacket.name}" onerror="this.style.display='none'" />
+    <img src="${thumb3}" alt="${jacket.name}-3" title="Thumb 3, ${jacket.name}" class="thumbimage" onclick="changeProductImage(3)" onerror="this.style.display='none'" />
   </div>
   <div>
-    <img src="${thumb4}" alt="${jacket.name}-4" title="Thumb 4, ${jacket.name}" onerror="this.style.display='none'"/>
+    <img src="${thumb4}" alt="${jacket.name}-4" title="Thumb 4, ${jacket.name}" class="thumbimage" onclick="changeProductImage(4)" onerror="this.style.display='none'"/>
   </div>
 </div>
 </section>
@@ -152,8 +157,31 @@ selectionForm.addEventListener("change", checkSections);
 
 // if there is only one gender, we select it by default.
 
-//let numberofGenders = jacket.male + jacket.female;
-
 if (!(jacket.male == jacket.female)) {
   document.querySelector("input[name=gender]").checked = true;
+}
+
+// Change image to show.
+function changeProductImage(newImg) {
+  const mainImageContainer = document.querySelector(".product-image");
+  let nextImg;
+  switch (newImg) {
+    case 1:
+      nextImg = img1;
+      break;
+    case 2:
+      nextImg = img2;
+      break;
+    case 3:
+      nextImg = img3;
+      break;
+    case 4:
+      nextImg = img4;
+      break;
+    default:
+      break;
+  }
+  mainImageContainer.src = nextImg;
+  // Below line is to make the page recover if the selected img is missing.
+  mainImageContainer.style.display = "block";
 }
