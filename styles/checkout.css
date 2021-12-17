@@ -167,6 +167,11 @@ table .name img {
   padding-left: 0px;
 }
 
+.deletebutton,
+.subtractbutton,
+.addbutton {
+  cursor: pointer;
+}
 /* Validation: */
 
 .validationerror {

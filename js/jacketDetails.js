@@ -224,16 +224,16 @@ function removeFromStorage(str) {}
 
 function alreadyInBasket(str, basketArray) {
   let trimmedSearchString = str.match(/(.*)le/)[0];
-  console.log("Trimmed: " + trimmedSearchString);
-  console.log(basketArray);
+  //console.log("Trimmed: " + trimmedSearchString);
+  //console.log(basketArray);
   let match;
   for (let i = 0; i < basketArray.length; i++) {
-    console.log("Searching for: " + trimmedSearchString);
-    console.log("in this string: " + basketArray[i]);
+    //console.log("Searching for: " + trimmedSearchString);
+    //console.log("in this string: " + basketArray[i]);
     match = basketArray[i].search(trimmedSearchString);
-    console.log(match + " : 0 or higher = match");
+    //console.log(match + " : 0 or higher = match");
     if (match >= 0) {
-      console.log("Item exists, we will add one more to the existing one");
+      //console.log("Item exists, we will add one more to the existing one");
       basketArray = addOrRemoveFromBasket(1, basketArray, i);
       // stop iterating on first match:
       return basketArray;
@@ -242,25 +242,6 @@ function alreadyInBasket(str, basketArray) {
   return false;
   //console.log(str.search(regex));
   // regex; (.*)le = 1,size-l,fema / 1,size-l,ma
-}
-
-function addOrRemoveFromBasket(num, arr, arridx) {
-  console.log("We will add " + num + " to this: " + arr[arridx]);
-  let oldItemData = arr[arridx];
-  let oldItemCount = Number(oldItemData.match(/\w+$/)[0]);
-  //console.log("Old counter: " + oldItemCount);
-  let newItemCount = oldItemCount + num;
-  //console.log(newItemCount);
-  let newItemData = oldItemData.replace("," + oldItemCount, "," + newItemCount);
-  //console.log(newItemData);
-  arr[arridx] = newItemData;
-  //console.log("New Basket Array:");
-  //console.log(arr);
-  storage.setItem("Basket", arr.join(";"));
-  //console.log("Storage is now: ");
-  //console.log(storage.getItem("Basket"));
-  //return newItemData;
-  return arr;
 }
 
 // currentBasket = storage.getItem("Basket").split(";");

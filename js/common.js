@@ -34,3 +34,30 @@ function updateBasketItemCount() {
 }
 
 updateBasketItemCount();
+
+function addOrRemoveFromBasket(num, arr, arridx) {
+  //arr = storage.getItem("Basket").split(";");
+  console.log("We will add " + num + " to this: " + arr[arridx]);
+  //console.log(arr);
+  // workaround-test:
+
+  //console.log(arr);
+  //
+  let oldItemData = arr[arridx];
+  console.log(oldItemData);
+  let oldItemCount = Number(oldItemData.match(/\w+$/)[0]);
+  //console.log("Old counter: " + oldItemCount);
+  let newItemCount = oldItemCount + num;
+  //console.log(newItemCount);
+  let newItemData = oldItemData.replace("," + oldItemCount, "," + newItemCount);
+  //console.log(newItemData);
+  arr[arridx] = newItemData;
+  //console.log("New Basket Array:");
+  //console.log(arr);
+  storage.setItem("Basket", arr.join(";"));
+  //console.log("Storage is now: ");
+  //console.log(storage.getItem("Basket"));
+  //return newItemData;
+  //getJacketsInBasket();
+  //return arr;
+}

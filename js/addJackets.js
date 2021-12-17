@@ -8,7 +8,7 @@ const jacketsContainer = document.querySelector(".main__jacketlist");
 const searchField = document.querySelector("input[type=search]");
 
 //let defaultJacketArray = allJackets;
-let currentJacketArray = allJackets;
+//let currentJacketArray = allJackets;
 
 //let jackets;
 // is jackets-variable absolete? (replace with currentJacketArray?)

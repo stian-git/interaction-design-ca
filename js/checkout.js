@@ -219,7 +219,14 @@ checkOutForm.addEventListener("change", checkAllFields);
 // }
 
 // checkOutForm.addEventListener("submit", validateForm);
+const basketItemContainer = document.querySelector("table");
 function getJacketsInBasket() {
+  basketItemContainer.innerHTML = `<tr class="rowheader">
+  <td class="name basket_headertext">Name</td>
+  <td class="basket_headertext">Qty</td>
+  <td class="basket_headertext">Price</td>
+  <td class="basket_headertext">Delete</td>
+</tr>`;
   //console.log("Runs on load");
   basketArray = storage.getItem("Basket").split(";");
   let arrayIdx;
@@ -232,8 +239,9 @@ function getJacketsInBasket() {
   let itemGender;
   let totalPrice = 0;
 
-  basketArray.forEach((item) => {
+  basketArray.forEach((item, i) => {
     // set required attributes:
+    //console.log("Item ID Index: " + i);
     itemId = item.match(/^\w+/)[0];
     arrayIdx = Number(itemId) - 1;
     itemPrice = allJackets[arrayIdx].price.toFixed(2);
@@ -249,11 +257,19 @@ function getJacketsInBasket() {
     // console.log(itemThumb);
     // console.log(itemSize);
     // console.log(itemGender);
-    let dataToDisplayInBasket = { name: itemName, size: itemSize, qty: itemCount, img: itemThumb, price: itemPrice, gender: itemGender };
-    console.log(dataToDisplayInBasket);
+    let dataToDisplayInBasket = {
+      basketArrayIndex: i,
+      name: itemName,
+      size: itemSize,
+      qty: itemCount,
+      img: itemThumb,
+      price: itemPrice,
+      gender: itemGender,
+    };
+    //console.log(dataToDisplayInBasket);
     displayBasketItem(dataToDisplayInBasket);
   });
-  console.log("Total price:" + totalPrice);
+  //console.log("Total price:" + totalPrice);
   totalPriceContainer.innerHTML = (totalPrice + shipment + invoiceFee).toFixed(2);
 }
 
@@ -263,8 +279,8 @@ getJacketsInBasket();
 
 function displayBasketItem(item) {
   const basketItemContainer = document.querySelector("tbody");
-  console.log(item.price);
-  console.log(item.name);
+  //console.log(item.price);
+  //console.log(item.name);
   let genderImage;
   let genderText = item.gender.charAt(0).toUpperCase() + item.gender.slice(1);
   if (item.gender == "female") {
@@ -314,14 +330,145 @@ function displayBasketItem(item) {
     <p class="basket_productname">${item.name}</p>
   </td>
   <td>
-    <img src="./images/PlusButton.png" class="basket_navbutton" aria-label="Add 1" title="Add 1" />
+    <img src="./images/PlusButton.png" class="basket_navbutton addbutton arrId-${item.basketArrayIndex}" aria-label="Add 1" title="Add 1" />
     <p class="basket_qty" aria-label="Current quantity">${item.qty}</p>
-    <img src="./images/MinusButton.png" class="basket_navbutton" aria-label="Subtract 1" title="Subtract 1" />
+    <img src="./images/MinusButton.png" class="basket_navbutton subtractbutton arrId-${item.basketArrayIndex}" aria-label="Subtract 1" title="Subtract 1" />
   </td>
   <td>${item.price}</td>
   <td>
-    <img src="./images/X-Button.png" class="basket_navbutton" aria-label="Delete-button" title="Delete" />
+    <img src="./images/X-Button.png" class="basket_navbutton deletebutton arrId-${item.basketArrayIndex}" aria-label="Delete-button" title="Delete" />
   </td>
 </tr>`;
   basketItemContainer.innerHTML += itemHTML;
 }
+
+const deleteButtons = document.querySelectorAll(".deletebutton");
+
+deleteButtons.forEach((element) => {
+  element.addEventListener("click", deleteItem);
+});
+
+function deleteItem(event) {
+  let arrIndexToDelete = event.target.classList.value.split("-")[1];
+  //let basketArray;
+  //console.log(currentJacketArray);
+  let basketArray = storage.getItem("Basket").split(";");
+  //let newBasketArray = basketArray.splice(arrIndexToDelete, 1);
+  console.log(basketArray);
+  basketArray.splice(arrIndexToDelete, 1);
+
+  console.log(event.target.classList.value);
+  //console.log(arrIndexToDelete);
+
+  console.log("Array after removal:");
+  console.log(basketArray);
+  storage.setItem("Basket", basketArray.join(";"));
+  getJacketsInBasket();
+}
+
+const addButtons = document.querySelectorAll(".addbutton");
+const subtractButtons = document.querySelectorAll(".subtractbutton");
+
+let arr;
+let newArr;
+let arrIndexToAdd;
+
+function increaseItem(event) {
+  //console.log("Add!");
+  arrIndexToAdd = event.target.classList.value.split("-")[1];
+  //console.log(arrIndexToAdd);
+  arr = storage.getItem("Basket").split(";");
+  newArr = addOrRemoveFromBasket(1, arr, Number(arrIndexToAdd));
+  //getJacketsInBasket();
+  //return newArr;
+  reloadAndKeepFormData();
+  //location.reload();
+}
+
+function subtractItem(event) {
+  //console.log("Subtract!");
+  arrIndexToSubtract = event.target.classList.value.split("-")[1];
+  arr = storage.getItem("Basket").split(";");
+  //console.log(arr);
+  //console.log(typeof arrIndexToSubtract);
+  newArr = addOrRemoveFromBasket(-1, arr, Number(arrIndexToSubtract));
+  //console.log(arrIndexToSubtract);
+  //return newArr;
+  //WORKAROUND to keep form data before reload:
+  reloadAndKeepFormData();
+  //location.reload();
+  //getJacketsInBasket();
+}
+
+addButtons.forEach((addElement) => {
+  addElement.addEventListener("click", increaseItem);
+
+  //getJacketsInBasket();
+});
+
+subtractButtons.forEach((subtractElement) => {
+  subtractElement.addEventListener("click", subtractItem);
+  //getJacketsInBasket();
+});
+
+function reloadAndKeepFormData() {
+  let customerName = fullName.value;
+  let customerMail = email.value;
+  let customerPhone = phone.value;
+  let customerAddress1 = addressLine1.value;
+  let customerAddress2 = addressLine2.value;
+  let customerZip = zip.value;
+  let customerCity = city.value;
+  let customerCountry = country.value;
+  let isTermsChecked = termsCheckbox.checked;
+  storage.setItem("Name", customerName);
+  storage.setItem("Mail", customerMail);
+  storage.setItem("Phone", customerPhone);
+  storage.setItem("Address1", customerAddress1);
+  storage.setItem("Address2", customerAddress2);
+  storage.setItem("Zip", customerZip);
+  storage.setItem("City", customerCity);
+  storage.setItem("Country", customerCountry);
+  storage.setItem("Terms", isTermsChecked);
+  storage.setItem("isReloaded", true);
+  location.reload();
+  // fullName.value = customerName;
+  // email.value = customerMail;
+  // phone.value = customerPhone;
+  // addressLine1.value = customerAddress1;
+  // addressLine2.value = customerAddress2;
+  // zip.value = customerZip;
+  // city.value = customerCity;
+  // country.value = customerCountry;
+  // termsCheckbox.checked = isTermsChecked;
+  // fullName.value = storage.getItem("Name");
+  // email.value = storage.getItem("Mail");
+  // phone.value = storage.getItem("Phone");
+  // addressLine1.value = storage.getItem("Address1");
+  // addressLine1.value = storage.getItem("Address2");
+  // zip.value = storage.getItem("Zip");
+  // city.value = storage.getItem("City");
+  // country.value = storage.getItem("Country");
+  // termsCheckbox.checked = storage.getItem("Terms");
+}
+
+//reloadAndKeepFormData();
+
+function checkForReload() {
+  //console.log("Checking for reload...");
+  //console.log("Value: " + storage.getItem("isReloaded"));
+  if (storage.getItem("isReloaded") == "true") {
+    console.log("Formdata in the storage!");
+    fullName.value = storage.getItem("Name");
+    email.value = storage.getItem("Mail");
+    phone.value = storage.getItem("Phone");
+    addressLine1.value = storage.getItem("Address1");
+    addressLine1.value = storage.getItem("Address2");
+    zip.value = storage.getItem("Zip");
+    city.value = storage.getItem("City");
+    country.value = storage.getItem("Country");
+    termsCheckbox.checked = storage.getItem("Terms");
+    storage.setItem("isReloaded", false);
+  }
+}
+checkForReload();

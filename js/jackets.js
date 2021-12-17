@@ -90,3 +90,6 @@ const allJackets = [
     reviewtext: "This is the best jacket I have ever owned. The perfect gift for everyone you know!",
   },
 ];
+
+// Moved from Addjackets:
+let currentJacketArray = allJackets;
