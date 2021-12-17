@@ -173,7 +173,7 @@ const buyButton = document.querySelector("button[type=submit].jacket-cta");
 buyButton.disabled = true;
 
 function addToBasket(event) {
-  event.preventDefault();
+  //event.preventDefault();
 
   //let jacketData = [jacketId, selectedSize.value, selectedGender.value, 1];
   let jacketData = `${jacketId},${selectedSize.value},${selectedGender.value},1`;

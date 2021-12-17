@@ -26,7 +26,7 @@ function updateBasketItemCount() {
     let currentItemCount;
     basketArray.forEach((item) => {
       currentItemCount = Number(item.match(/\w+$/)[0]);
-      console.log(currentItemCount);
+      //console.log(currentItemCount);
       counter += currentItemCount;
     });
   }

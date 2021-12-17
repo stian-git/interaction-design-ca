@@ -93,16 +93,25 @@ table {
   border-collapse: collapse;
 }
 
+tr {
+  border-radius: 50px;
+}
+tr:nth-child(even) {
+  background: white;
+}
+
+tr:nth-child(odd) {
+  background: var(--color_nav);
+}
 .rowheader {
-  background-color: var(--color_nav);
   height: 3em;
 }
 
-.rowcolor_odd {
+/* .rowcolor_odd {
   background-color: white;
   color: var(--color_text);
-  border-radius: 50px;
-}
+  //border-radius: 50px;
+} */
 
 table .name {
   text-align: left;

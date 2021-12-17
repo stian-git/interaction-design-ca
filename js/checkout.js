@@ -9,6 +9,17 @@ const city = document.querySelector("#city");
 const country = document.querySelector("#country");
 //const payMethod = document.querySelector("fieldset[type=radio]");
 
+const shipmentPriceContainer = document.querySelector(".shipmentprice");
+const invoiceFeeContainer = document.querySelector(".invoicefee");
+const totalPriceContainer = document.querySelector(".totalprice");
+
+const shipment = 7;
+// 10 and 5 was the old values.
+const invoiceFee = 2;
+
+shipmentPriceContainer.innerHTML = shipment.toFixed(2);
+invoiceFeeContainer.innerHTML = invoiceFee.toFixed(2);
+
 function validateEmail(email) {
   const regEx = /\S+@\S+\.\S+/;
   const patternMatches = regEx.test(email);
@@ -209,19 +220,108 @@ checkOutForm.addEventListener("change", checkAllFields);
 
 // checkOutForm.addEventListener("submit", validateForm);
 function getJacketsInBasket() {
-  console.log("Runs on load");
-  // for (let i = 0; i < jackets.length; i++) {
-  //   let id = storage.getItem("Jacket-" + jackets[i].id);
-  //   if (id) {
-  //     console.log(id);
-  //   }
-  storage.forEach((element) => {
-    console.log(element);
+  //console.log("Runs on load");
+  basketArray = storage.getItem("Basket").split(";");
+  let arrayIdx;
+  let itemId;
+  let itemName;
+  let itemSize;
+  let itemCount;
+  let itemPrice;
+  let itemThumb;
+  let itemGender;
+  let totalPrice = 0;
+
+  basketArray.forEach((item) => {
+    // set required attributes:
+    itemId = item.match(/^\w+/)[0];
+    arrayIdx = Number(itemId) - 1;
+    itemPrice = allJackets[arrayIdx].price.toFixed(2);
+    itemName = allJackets[arrayIdx].name;
+    itemThumb = allJackets[arrayIdx].image.replace(".jpg", "-thumb.jpg");
+    itemSize = item.split(",")[1].split("-")[1].toUpperCase();
+    itemGender = item.split(",")[2];
+    itemCount = item.split(",")[3];
+    totalPrice += allJackets[arrayIdx].price * itemCount;
+    // console.log(itemId);
+    // console.log(arrayIdx);
+    // console.log(itemPrice);
+    // console.log(itemThumb);
+    // console.log(itemSize);
+    // console.log(itemGender);
+    let dataToDisplayInBasket = { name: itemName, size: itemSize, qty: itemCount, img: itemThumb, price: itemPrice, gender: itemGender };
+    console.log(dataToDisplayInBasket);
+    displayBasketItem(dataToDisplayInBasket);
   });
-
-  //console.log(jacket.id);
-
-  //console.log(storage.getItem("Jacket-" + jacket.id));
+  console.log("Total price:" + totalPrice);
+  totalPriceContainer.innerHTML = (totalPrice + shipment + invoiceFee).toFixed(2);
 }
 
 getJacketsInBasket();
+
+//basketItemContainer.innerHTML = "Svada";
+
+function displayBasketItem(item) {
+  const basketItemContainer = document.querySelector("tbody");
+  console.log(item.price);
+  console.log(item.name);
+  let genderImage;
+  let genderText = item.gender.charAt(0).toUpperCase() + item.gender.slice(1);
+  if (item.gender == "female") {
+    genderImage = "../images/outline_female_red_24dp.png";
+  } else {
+    genderImage = "../images/outline_male_red_24dp.png";
+  }
+  let sizeImage;
+  let sizeText;
+  switch (item.size) {
+    case "S":
+      sizeImage = "../images/size-s.png";
+      sizeText = "Small";
+      break;
+    case "M":
+      sizeImage = "../images/size-m.png";
+      sizeText = "Medium";
+      break;
+    case "L":
+      sizeImage = "../images/size-l.png";
+      sizeText = "Large";
+      break;
+    case "XL":
+      sizeImage = "../images/size-xl.png";
+      sizeText = "X-Large";
+      break;
+    case "XXL":
+      sizeImage = "../images/size-xxl.png";
+      sizeText = "2X-Large";
+      break;
+
+    default:
+      break;
+  }
+  //console.log(genderImage);
+  //console.log(item.gender.charAt(0).toUpperCase() + item.gender.slice(1));
+  //console.log(genderText);
+  const itemHTML = `<tr>
+  <td class="name">
+    <img src="${item.img}" class="basket_productimage" />
+    <p class="required">
+      <img src="${sizeImage}" class="basket_navbutton" />
+      <img src="${genderImage}" class="basket_navbutton" />
+      <span class="tooltip_top">${sizeText}, ${genderText}</span>
+    </p>
+
+    <p class="basket_productname">${item.name}</p>
+  </td>
+  <td>
+    <img src="./images/PlusButton.png" class="basket_navbutton" aria-label="Add 1" title="Add 1" />
+    <p class="basket_qty" aria-label="Current quantity">${item.qty}</p>
+    <img src="./images/MinusButton.png" class="basket_navbutton" aria-label="Subtract 1" title="Subtract 1" />
+  </td>
+  <td>${item.price}</td>
+  <td>
+    <img src="./images/X-Button.png" class="basket_navbutton" aria-label="Delete-button" title="Delete" />
+  </td>
+</tr>`;
+  basketItemContainer.innerHTML += itemHTML;
+}
