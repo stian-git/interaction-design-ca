@@ -13,12 +13,19 @@ const shipmentPriceContainer = document.querySelector(".shipmentprice");
 const invoiceFeeContainer = document.querySelector(".invoicefee");
 const totalPriceContainer = document.querySelector(".totalprice");
 
-const shipment = 7;
-// 10 and 5 was the old values.
-const invoiceFee = 2;
+let shipment = 7;
+let invoiceFee = 2;
 
 shipmentPriceContainer.innerHTML = shipment.toFixed(2);
 invoiceFeeContainer.innerHTML = invoiceFee.toFixed(2);
+// if (!storage.getItem("Basket") == "") {
+//   shipmentPriceContainer.innerHTML = shipment.toFixed(2);
+//   invoiceFeeContainer.innerHTML = invoiceFee.toFixed(2);
+// } else {
+//   shipmentPriceContainer.innerHTML = "0.00";
+//   invoiceFeeContainer.innerHTML = "0.00";
+//   totalPriceContainer.innerHTML = "0.00";
+// }
 
 function validateEmail(email) {
   const regEx = /\S+@\S+\.\S+/;
@@ -220,55 +227,66 @@ checkOutForm.addEventListener("change", checkAllFields);
 
 // checkOutForm.addEventListener("submit", validateForm);
 const basketItemContainer = document.querySelector("table");
+const basketSummaryContainer = document.querySelector(".basket__summary");
+const basketHeader = document.querySelector(".basket h2");
+
+//basketHeader.innerHTML = "Basket (Currently empty)";
 function getJacketsInBasket() {
+  let totalPrice = 0;
   basketItemContainer.innerHTML = `<tr class="rowheader">
   <td class="name basket_headertext">Name</td>
   <td class="basket_headertext">Qty</td>
   <td class="basket_headertext">Price</td>
   <td class="basket_headertext">Delete</td>
 </tr>`;
-  //console.log("Runs on load");
-  basketArray = storage.getItem("Basket").split(";");
-  let arrayIdx;
-  let itemId;
-  let itemName;
-  let itemSize;
-  let itemCount;
-  let itemPrice;
-  let itemThumb;
-  let itemGender;
-  let totalPrice = 0;
+  console.log(storage.getItem("Basket"));
+  basketItemContainer.style.display = "none";
+  basketSummaryContainer.style.display = "none";
+  //basketHeader.innerHTML = "Basket (Currently empty)";
+  if (!storage.getItem("Basket") == "") {
+    basketItemContainer.style.display = "table";
+    basketSummaryContainer.style.display = "grid";
+    basketHeader.innerHTML = "Basket";
+    console.log("Basket is not empty");
+    let basketArray = storage.getItem("Basket").split(";");
+    let arrayIdx;
+    let itemId;
+    let itemName;
+    let itemSize;
+    let itemCount;
+    let itemPrice;
+    let itemThumb;
+    let itemGender;
 
-  basketArray.forEach((item, i) => {
-    // set required attributes:
-    //console.log("Item ID Index: " + i);
-    itemId = item.match(/^\w+/)[0];
-    arrayIdx = Number(itemId) - 1;
-    itemPrice = allJackets[arrayIdx].price.toFixed(2);
-    itemName = allJackets[arrayIdx].name;
-    itemThumb = allJackets[arrayIdx].image.replace(".jpg", "-thumb.jpg");
-    itemSize = item.split(",")[1].split("-")[1].toUpperCase();
-    itemGender = item.split(",")[2];
-    itemCount = item.split(",")[3];
-    totalPrice += allJackets[arrayIdx].price * itemCount;
-    // console.log(itemId);
-    // console.log(arrayIdx);
-    // console.log(itemPrice);
-    // console.log(itemThumb);
-    // console.log(itemSize);
-    // console.log(itemGender);
-    let dataToDisplayInBasket = {
-      basketArrayIndex: i,
-      name: itemName,
-      size: itemSize,
-      qty: itemCount,
-      img: itemThumb,
-      price: itemPrice,
-      gender: itemGender,
-    };
-    //console.log(dataToDisplayInBasket);
-    displayBasketItem(dataToDisplayInBasket);
-  });
+    console.log(basketArray.length);
+
+    basketArray.forEach((item, i) => {
+      // set required attributes:
+      //console.log("Item ID Index: " + i);
+      itemId = item.match(/^\w+/)[0];
+      arrayIdx = Number(itemId) - 1;
+      itemPrice = allJackets[arrayIdx].price.toFixed(2);
+      itemName = allJackets[arrayIdx].name;
+      itemThumb = allJackets[arrayIdx].image.replace(".jpg", "-thumb.jpg");
+      itemSize = item.split(",")[1].split("-")[1].toUpperCase();
+      itemGender = item.split(",")[2];
+      itemCount = item.split(",")[3];
+      totalPrice += allJackets[arrayIdx].price * itemCount;
+      let dataToDisplayInBasket = {
+        basketArrayIndex: i,
+        name: itemName,
+        size: itemSize,
+        qty: itemCount,
+        img: itemThumb,
+        price: itemPrice,
+        gender: itemGender,
+      };
+      //console.log(dataToDisplayInBasket);
+      displayBasketItem(dataToDisplayInBasket);
+    });
+  }
+  //console.log("Runs on load");
+
   //console.log("Total price:" + totalPrice);
   totalPriceContainer.innerHTML = (totalPrice + shipment + invoiceFee).toFixed(2);
 }
@@ -389,15 +407,9 @@ function subtractItem(event) {
   //console.log("Subtract!");
   arrIndexToSubtract = event.target.classList.value.split("-")[1];
   arr = storage.getItem("Basket").split(";");
-  //console.log(arr);
-  //console.log(typeof arrIndexToSubtract);
   newArr = addOrRemoveFromBasket(-1, arr, Number(arrIndexToSubtract));
-  //console.log(arrIndexToSubtract);
-  //return newArr;
   //WORKAROUND to keep form data before reload:
   reloadAndKeepFormData();
-  //location.reload();
-  //getJacketsInBasket();
 }
 
 addButtons.forEach((addElement) => {
@@ -432,33 +444,13 @@ function reloadAndKeepFormData() {
   storage.setItem("Terms", isTermsChecked);
   storage.setItem("isReloaded", true);
   location.reload();
-  // fullName.value = customerName;
-  // email.value = customerMail;
-  // phone.value = customerPhone;
-  // addressLine1.value = customerAddress1;
-  // addressLine2.value = customerAddress2;
-  // zip.value = customerZip;
-  // city.value = customerCity;
-  // country.value = customerCountry;
-  // termsCheckbox.checked = isTermsChecked;
-  // fullName.value = storage.getItem("Name");
-  // email.value = storage.getItem("Mail");
-  // phone.value = storage.getItem("Phone");
-  // addressLine1.value = storage.getItem("Address1");
-  // addressLine1.value = storage.getItem("Address2");
-  // zip.value = storage.getItem("Zip");
-  // city.value = storage.getItem("City");
-  // country.value = storage.getItem("Country");
-  // termsCheckbox.checked = storage.getItem("Terms");
 }
 
 //reloadAndKeepFormData();
 
 function checkForReload() {
-  //console.log("Checking for reload...");
-  //console.log("Value: " + storage.getItem("isReloaded"));
   if (storage.getItem("isReloaded") == "true") {
-    console.log("Formdata in the storage!");
+    //console.log("Adding formdata from storage!");
     fullName.value = storage.getItem("Name");
     email.value = storage.getItem("Mail");
     phone.value = storage.getItem("Phone");
