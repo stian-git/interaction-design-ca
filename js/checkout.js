@@ -242,12 +242,13 @@ function getJacketsInBasket() {
   console.log(storage.getItem("Basket"));
   basketItemContainer.style.display = "none";
   basketSummaryContainer.style.display = "none";
+  basketHeader.innerHTML = "Basket (Currently empty";
   //basketHeader.innerHTML = "Basket (Currently empty)";
   if (!storage.getItem("Basket") == "") {
     basketItemContainer.style.display = "table";
     basketSummaryContainer.style.display = "grid";
     basketHeader.innerHTML = "Basket";
-    console.log("Basket is not empty");
+    console.log("Basket is not empty)");
     let basketArray = storage.getItem("Basket").split(";");
     let arrayIdx;
     let itemId;
