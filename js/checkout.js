@@ -193,6 +193,7 @@ function validateTerms(event) {
   if (!termsCheckbox.checked) {
     helptext.style.display = "block";
     helptext.innerHTML = "Please accept terms to place order.";
+    submitButton.disabled = true;
   } else {
     helptext.style.display = "none";
   }
