@@ -147,7 +147,7 @@ function changeProductImage(newImg) {
   }
   mainImageContainer.src = nextImg;
   // Below line is to make the page recover if the selected img is missing.
-  mainImageContainer.style.display = "block";
+  mainImageContainer.style.display = "inline";
 }
 
 let selectedSize;
