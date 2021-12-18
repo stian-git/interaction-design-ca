@@ -60,7 +60,9 @@
   aside {
     margin: 40px 10px 0px 20px;
   }
-
+  aside.smallpagefix {
+    min-height: 518.16px;
+  }
   .aside__container {
     display: flex;
     width: 25.8em;
@@ -74,7 +76,9 @@
     display: flex;
     width: 25.8em;
   } */
-
+  .banner_container.top {
+    display: inline-block;
+  }
   .banner_image {
     width: 25.8em;
   }
@@ -107,6 +111,11 @@
   .adjustment_topmargin {
     margin-top: unset;
   }
+
+  section.banner_container {
+    display: none;
+  }
+
   footer {
     flex-direction: row;
   }

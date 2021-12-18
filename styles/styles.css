@@ -258,9 +258,13 @@ li img {
 aside {
   display: flexbox;
   flex-flow: column;
-  min-height: 518.16px;
+  /* min-height: 518.16px;  Commented 18.12*/
   grid-area: grid_aside;
   text-align: -webkit-center;
+}
+
+aside.smallpagefix {
+  //min-height: 518.16px;
 }
 
 .aside__container {
@@ -454,4 +458,23 @@ fieldset {
 .aside__search-field button:hover {
   background-size: cover;
   border: 3px solid var(--color_cta_product_nonsale);
+}
+
+/* Banner-control */
+
+/* .banner_container.bottom {
+  border: 2px solid red;
+} */
+
+.banner_container {
+  text-align: center;
+  display: block;
+}
+
+.banner_container.bottom {
+  display: inline-block;
+}
+
+.banner_container.top {
+  display: none;
 }
