@@ -1,6 +1,7 @@
 // Make sure we clear the storage when order has been placed:
 storage.clear();
 
+updateBasketItemCount();
 // Retrieve parameters from URL:
 
 const queries = document.location.search;
