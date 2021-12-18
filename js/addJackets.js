@@ -6,7 +6,11 @@ const searchString = searchParams.get("q");
 
 const jacketsContainer = document.querySelector(".main__jacketlist");
 const searchField = document.querySelector("input[type=search]");
-
+const searchButton = document.querySelector(".aside__search-field button");
+//searchButton.disable = true;
+searchButton.onclick = function (event) {
+  event.preventDefault();
+};
 //let defaultJacketArray = allJackets;
 //let currentJacketArray = allJackets;
 

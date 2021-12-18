@@ -136,6 +136,9 @@
     grid-template-columns: auto auto;
   }
 
+  .jacketcontainer {
+    max-height: 400px;
+  }
   /* Contact page*/
 
   .contact__main_container {
