@@ -1,3 +1,6 @@
+/* @media only screen and (min-width: 430px) {
+} */
+
 @media only screen and (min-width: 880px) {
   body {
     grid-template-columns: auto 1fr;
@@ -60,13 +63,14 @@
 
   aside {
     margin: 40px 10px 0px 20px;
+    max-width: 26em;
   }
   aside.smallpagefix {
     min-height: 518.16px;
   }
   .aside__container {
     display: flex;
-    width: 25.8em;
+    /* width: 25.8em; */
   }
 
   .aside__search-field button {
@@ -124,6 +128,9 @@
     line-height: 5em;
   }
 
+  .mobile_menu {
+    display: none;
+  }
   /* Jackets page*/
   .main__jacketlist {
     grid-template-columns: auto auto;

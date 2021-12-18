@@ -271,7 +271,7 @@ aside.smallpagefix {
 .aside__container {
   background-color: var(--color_nav);
   position: relative;
-  width: 23em;
+  /* width: 23em;  commented 18.12*/
   border: 1px solid var(--color_border);
   /* Check below settings (moved from aside__search-container */
   display: block;
@@ -280,10 +280,12 @@ aside.smallpagefix {
 
 .aside__search {
   flex-flow: column;
-  //border-radius: 25px;
-  height: 3.5em;
+  /* border-radius: 25px;
+  height: 3.5em; */
+  align-content: center;
 }
 .aside__search-container {
+  border: none;
 }
 
 .aside__scalefix {
@@ -305,7 +307,7 @@ aside.smallpagefix {
 .aside__search-field {
   position: relative;
   display: flex;
-  top: 6px;
+  /* top: 6px; */
   justify-content: center;
 }
 input[type="search"] {
@@ -313,9 +315,12 @@ input[type="search"] {
   border-radius: 25px;
   position: relative;
   display: inline-block;
-  font-size: 22px;
+  height: 40px;
+  font-size: 1em;
+  /* font-size: 22px; Commented 18.12*/
   align-self: center;
-  margin-left: 5%;
+  text-align: center;
+  /* margin-left: 5%; Commented 18.12 */
 }
 input[type="search"]:focus {
   background-color: white;
@@ -478,4 +483,29 @@ fieldset {
 
 .banner_container.top {
   display: none;
+}
+
+/* new small screens nav*/
+
+.mobile_nav {
+  margin: 0px 5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 5px 0px;
+}
+
+.mobile_nav.burgermenu {
+}
+
+#burger {
+  //display: flex;
+  box-shadow: 0px 1px 4px 0.2px #191b26;
+  //box-shadow: none;
+}
+
+#mobile_basket {
+  display: flex;
+  position: initial;
+  margin: 0 20px;
 }
