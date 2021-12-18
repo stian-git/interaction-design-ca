@@ -381,6 +381,7 @@ main {
 
 main p {
   color: black;
+  margin: 16px 10px;
 }
 footer {
   grid-area: grid_footer;
