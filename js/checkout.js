@@ -461,7 +461,14 @@ function checkForReload() {
     zip.value = storage.getItem("Zip");
     city.value = storage.getItem("City");
     country.value = storage.getItem("Country");
-    termsCheckbox.checked = storage.getItem("Terms");
+    if (storage.getItem("Terms") == "True") {
+      termsCheckbox.checked = true;
+    } else {
+      termsCheckbox.checked = false;
+    }
+    //termsCheckbox.checked = Boolean(storage.getItem("Terms"));
+
+    //console.log("Terms: " + Boolean(storage.getItem("Terms")));
     storage.setItem("isReloaded", false);
   }
 }
