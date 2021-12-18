@@ -242,7 +242,7 @@ function getJacketsInBasket() {
   console.log(storage.getItem("Basket"));
   basketItemContainer.style.display = "none";
   basketSummaryContainer.style.display = "none";
-  basketHeader.innerHTML = "Basket (Currently empty";
+  basketHeader.innerHTML = "Basket (Currently empty)";
   //basketHeader.innerHTML = "Basket (Currently empty)";
   if (!storage.getItem("Basket") == "") {
     basketItemContainer.style.display = "table";
@@ -382,7 +382,8 @@ function deleteItem(event) {
   console.log("Array after removal:");
   console.log(basketArray);
   storage.setItem("Basket", basketArray.join(";"));
-  getJacketsInBasket();
+  //getJacketsInBasket();
+  reloadAndKeepFormData();
 }
 
 const addButtons = document.querySelectorAll(".addbutton");
