@@ -37,6 +37,9 @@
   font-size: 3em;
   margin: 40px 0px 30px 0px;
 }
+.product-image_thumbnails {
+  display: block;
+}
 
 .product-image_thumbnails img {
   border: 2px solid black;
