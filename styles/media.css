@@ -11,6 +11,7 @@
     grid-template-rows: auto auto auto;
     grid-template-areas: "header_line header_line header_line header_line" "header_logo header_nav header_nav header_basket" "header_logo header_h1 . .";
     text-align: unset;
+    height: 250px;
   }
   header h1 {
     padding-left: 2.2em;

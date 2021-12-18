@@ -84,10 +84,11 @@ header h1 {
   background-color: var(--color_texture_bg);
   border: 1px solid var(--color_border);
   border-radius: 20px;
-  //top: -20px;
   top: -40px;
   justify-content: center;
   box-shadow: 1px 1px 30px black;
+  display: inline-block;
+  width: 300px;
 }
 
 .logo a {
@@ -258,7 +259,7 @@ li img {
 aside {
   display: flexbox;
   flex-flow: column;
-  /* min-height: 518.16px;  Commented 18.12*/
+  //min-height: 518.16px;  Commented 18.12*/
   grid-area: grid_aside;
   text-align: -webkit-center;
 }
