@@ -112,4 +112,13 @@ input[type="radio"]:checked + label {
 button.jacket-cta {
   margin-top: 0px;
   cursor: pointer;
+  margin-bottom: 25px;
+}
+
+button.checkout {
+  background-color: var(--color_cta_product_sale);
+}
+
+#added {
+  background: var(--color_cta_product_sale);
 }

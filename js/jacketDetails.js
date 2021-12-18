@@ -80,7 +80,7 @@ jacketContainer.innerHTML = `<section class="jacketdetails__images">
   <p class="ratingstars"><a href="#jacketdetails_reviews" title="View Reviews"><img src="../images/${jacket.rating}-stars.png" aria-label="Review Stars: ${jacket.rating}"></a></p>
   ${jacket.description}
   <p><a href="#jacket_details" alt="Read details for this jacket" title="Read details about this jacket">Read more...</a></p>
-  <form action="checkout.html" method="get" class="form_orderdetails">
+  <form action="checkout.html" class="form_orderdetails" onsubmit="return false">
     <fieldset>
       <legend>Select Gender:</legend>
       ${genderFemale}
@@ -96,7 +96,8 @@ jacketContainer.innerHTML = `<section class="jacketdetails__images">
     </fieldset>
     <p class="product-specific__price">${jacket.price} EUR</p>
     <input type="hidden" value="${jacketId}" id="id" name="id">
-    <button type="submit" class="jacket-cta" aria-label="Click to buy now">Buy now</button>
+    <button type="submit" class="jacket-cta addtobasket" aria-label="Click to buy now">Add to basket</button>
+    <a href="checkout.html" title="Checkout"><button type="button" class="jacket-cta checkout" aria-label="Click to buy now">Checkout</button></a>
   </form>
   
   </div>
@@ -178,10 +179,18 @@ function addToBasket(event) {
   //let jacketData = [jacketId, selectedSize.value, selectedGender.value, 1];
   let jacketData = `${jacketId},${selectedSize.value},${selectedGender.value},1`;
   console.log("Adding: " + jacketData);
+  checkoutbutton.style.display = "inline-block";
   addToStorage(jacketData);
   //storage.setItem("Basket", jacketData2 + ";");
   //console.log(storage.getItem("Basket"));
   updateBasketItemCount();
+  // inform user:
+  buyButton.innerText = "Item added";
+  buyButton.id = "added";
+  setTimeout(() => {
+    buyButton.id = "";
+    buyButton.innerText = "Add to basket";
+  }, 1500);
 }
 buyButton.addEventListener("click", addToBasket);
 
@@ -246,3 +255,8 @@ function alreadyInBasket(str, basketArray) {
 
 // currentBasket = storage.getItem("Basket").split(";");
 // addOrRemoveFromBasket(1, currentBasket, [0]);
+const checkoutbutton = document.querySelector("button.checkout");
+if (basketCounterContainer.innerHTML == 0) {
+  checkoutbutton.style.display = "none";
+}
+//checkoutbutton.style.display = "none";
