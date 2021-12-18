@@ -200,7 +200,7 @@ function validateTerms(event) {
 
 termsCheckbox.addEventListener("click", validateTerms);
 
-const submitButton = document.querySelector("button[type=submit]");
+const submitButton = document.querySelector("button[type=submit].jacket-cta");
 submitButton.disabled = true;
 
 // CHECK and enable fields
@@ -208,7 +208,7 @@ function checkAllFields() {
   // NB: Currently missing additional check for Payment method as there are only one option.
   const validationCorrectCount = document.querySelectorAll(".fa-check-circle").length;
   if (validationCorrectCount === 6) {
-    if (!termsCheckbox.checked) {
+    if (!termsCheckbox.checked || basketCounterContainer.innerHTML == 0) {
       validateTerms();
       return;
     }
