@@ -1,11 +1,13 @@
 header {
-  height: 500px;
+  //height: 500px;
   /* from 250 - 18.12*/
 }
 
 .main__jacketlist {
-  display: grid;
+  /* display: grid; */
+  display: block;
   color: #000;
+  text-align: center;
 }
 
 .main__jacketlist a {
@@ -19,7 +21,7 @@ header {
   overflow: hidden;
   padding: 5%;
   text-align: center;
-  max-height: 400px;
+  /* max-height: 400px; */
 }
 
 .image_container img {

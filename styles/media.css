@@ -132,6 +132,7 @@
 
   /* Jackets page*/
   .main__jacketlist {
+    display: grid;
     grid-template-columns: auto auto;
   }
 
