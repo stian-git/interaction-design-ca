@@ -93,9 +93,10 @@ header {
   background-color: var(--color_cta_product_sale);
 }
 
-/* moves from styles.css*/
+/* moved from styles.css*/
 .filter-container {
-  margin-top: 5px;
+  margin: 5px 5px 5px 5px;
+  /* width: fit-content; */
 }
 
 .filter-container p {
@@ -113,6 +114,10 @@ header {
   margin-left: 3px;
 }
 
+.filter-container fieldset {
+  margin-right: 0px;
+  padding-right: 0px;
+}
 .filter-container input[type="checkbox"] {
   position: relative;
   top: 2px;
