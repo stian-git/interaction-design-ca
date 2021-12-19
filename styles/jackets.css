@@ -76,12 +76,12 @@
 .jacketgender {
   grid-area: jacket_gender;
   margin: 0px;
-  justify-self: center;
+  justify-self: right;
+  align-self: self-end;
 }
 
 .jacketgender img {
   width: 2em;
-  margin: 5px 0px 0px 0px;
 }
 
 .jacketsale {
@@ -149,4 +149,9 @@ fieldset .filter_gender {
 .fa-info-circle:hover {
   border-radius: 25px;
   border: 2px solid var(--color_tooltip);
+}
+
+.tooltip_top.gender {
+  left: -62px;
+  top: -31px;
 }

@@ -40,10 +40,20 @@ function showJackets(arr = allJackets) {
   </svg>`;
     }
     if (jackets[i].male === true) {
-      maleIcon = `<img src="../images/outline_male_black_24dp.png" aria-label="Male Icon">`;
+      //maleIcon = `<img src="../images/outline_male_black_24dp.png" aria-label="Male Icon">`;
+      maleIcon = `
+                  <i class="required gender">
+                    <img src="../images/outline_male_black_24dp.png" aria-label="Male Icon">
+                    <span class="tooltip_top gender">Male</span>
+                  </i>`;
     }
     if (jackets[i].female === true) {
-      femaleIcon = `<img src="../images/outline_female_black_24dp.png" aria-label="Female Icon">`;
+      // femaleIcon = `<img src="../images/outline_female_black_24dp.png" aria-label="Female Icon">`;
+      femaleIcon = `
+                <i class="required gender">
+                  <img src="../images/outline_female_black_24dp.png" aria-label="Female Icon">
+                  <span class="tooltip_top gender">Female</span>
+                </i>`;
     }
     jacketsContainer.innerHTML += `
   <a href="jacketdetails.html?id=${jackets[i].id}">
