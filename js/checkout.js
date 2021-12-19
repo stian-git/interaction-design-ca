@@ -421,7 +421,7 @@ function checkForReload() {
     }
     storage.setItem("isReloaded", false);
     //Force a recheck of validations to enable/disable the "Place order"-button
-    reValidate();
+    //reValidate();
   }
 }
 checkForReload();
