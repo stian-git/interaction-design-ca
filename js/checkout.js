@@ -414,12 +414,26 @@ function checkForReload() {
     zip.value = storage.getItem("Zip");
     city.value = storage.getItem("City");
     country.value = storage.getItem("Country");
-    if (storage.getItem("Terms") == "True") {
+    if (storage.getItem("Terms") == "true") {
       termsCheckbox.checked = true;
     } else {
       termsCheckbox.checked = false;
     }
     storage.setItem("isReloaded", false);
+    //Force a recheck of validations to enable/disable the "Place order"-button
+    reValidate();
   }
 }
 checkForReload();
+
+// Recheck all validations.
+function reValidate() {
+  validateName();
+  validateEmailAddress();
+  validateAddress1();
+  validateZip();
+  validateCity();
+  validateCountry();
+  validateTerms();
+  checkAllFields();
+}
