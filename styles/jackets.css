@@ -1,10 +1,4 @@
-header {
-  //height: 500px;
-  /* from 250 - 18.12*/
-}
-
 .main__jacketlist {
-  /* display: grid; */
   display: block;
   color: #000;
   text-align: center;
@@ -21,7 +15,6 @@ header {
   overflow: hidden;
   padding: 5%;
   text-align: center;
-  /* max-height: 400px; */
 }
 
 .image_container img {
@@ -95,10 +88,8 @@ header {
   background-color: var(--color_cta_product_sale);
 }
 
-/* moved from styles.css*/
 .filter-container {
   margin: 5px 5px 5px 5px;
-  /* width: fit-content; */
 }
 
 .filter-container p {
@@ -151,10 +142,8 @@ fieldset .filter_gender {
 
 .fa-info-circle {
   color: var(--color_tooltip);
-  //display: block;
   font-size: 3em;
   border-radius: 25px;
-  //background-color: red;
 }
 
 .fa-info-circle:hover {

@@ -124,23 +124,11 @@ nav ul li {
   font-size: 1.2em;
 }
 
-/*li a {
-  text-decoration: none;
-  color: var(--color_text);
-  background-color: #97bf75;
-}
-/* Below is for testing A outside LI*/
-/* a li {
-  text-decoration: none;
-  color: var(--color_text);
-} */
-
 ul a {
   display: contents;
   color: var(--color_text);
 }
 
-/* */
 .fa-bars {
   top: 0px;
   width: 50px;
@@ -239,7 +227,6 @@ li img {
   position: absolute;
   left: -4px;
   top: -1.5em;
-  //top: 0.3em;
   z-index: 1;
   transition: opacity 0.3s;
   cursor: pointer;
@@ -259,32 +246,24 @@ li img {
 aside {
   display: flexbox;
   flex-flow: column;
-  //min-height: 518.16px;  Commented 18.12*/
   grid-area: grid_aside;
   text-align: -webkit-center;
-}
-
-aside.smallpagefix {
-  //min-height: 518.16px;
 }
 
 .aside__container {
   background-color: var(--color_nav);
   position: relative;
-  /* width: 23em;  commented 18.12*/
   border: 1px solid var(--color_border);
-  /* Check below settings (moved from aside__search-container */
   display: block;
   border-radius: 25px;
 }
 
 .aside__search {
   flex-flow: column;
-  /* border-radius: 25px;
-  height: 3.5em; */
   align-content: center;
 }
-.aside__search-container {
+.aside__search-container,
+fieldset {
   border: none;
 }
 
@@ -307,9 +286,9 @@ aside.smallpagefix {
 .aside__search-field {
   position: relative;
   display: flex;
-  /* top: 6px; */
   justify-content: center;
 }
+
 input[type="search"] {
   background-color: var(--color_texture_bg);
   border-radius: 25px;
@@ -317,10 +296,8 @@ input[type="search"] {
   display: inline-block;
   height: 40px;
   font-size: 1em;
-  /* font-size: 22px; Commented 18.12*/
   align-self: center;
   text-align: center;
-  /* margin-left: 5%; Commented 18.12 */
 }
 input[type="search"]:focus {
   background-color: white;
@@ -372,6 +349,40 @@ input[type="image"]:hover {
   color: var(--color_text);
 }
 
+.aside__search-field button {
+  display: inline-flex;
+  margin-left: 1em;
+  height: 38px;
+  width: 38px;
+  padding: 4px;
+  background: url(../images/icon_search-button.png);
+  align-content: center;
+  cursor: pointer;
+  background-size: cover;
+  border: 3px solid var(--color_nav);
+  border-radius: 50%;
+}
+
+.aside__search-field button:hover {
+  background-size: cover;
+  border: 3px solid var(--color_cta_product_nonsale);
+}
+
+/* Banner-control */
+
+.banner_container {
+  text-align: center;
+  display: block;
+}
+
+.banner_container.bottom {
+  display: inline-block;
+}
+
+.banner_container.top {
+  display: none;
+}
+
 main {
   grid-area: grid_main;
   position: relative;
@@ -414,6 +425,26 @@ ul li {
   display: inline;
 }
 
+/* new small screens nav*/
+
+.mobile_nav {
+  margin: 0px 5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 5px 0px;
+}
+
+#burger {
+  box-shadow: 0px 1px 4px 0.2px #191b26;
+}
+
+#mobile_basket {
+  display: flex;
+  position: initial;
+  margin: 0 20px;
+}
+
 /* Common between jacket details and jackets list*/
 .jacket-cta {
   display: inline-block;
@@ -441,72 +472,4 @@ button:disabled {
   color: white;
   background-color: #dfdfdf;
   border: 0px;
-}
-
-fieldset {
-  border: none;
-}
-
-/* Move the below to the correct place in the CSS */
-.aside__search-field button {
-  display: inline-flex;
-  margin-left: 1em;
-  height: 38px;
-  width: 38px;
-  padding: 4px;
-  background: url(../images/icon_search-button.png);
-  align-content: center;
-  cursor: pointer;
-  background-size: cover;
-  border: 3px solid var(--color_nav);
-  border-radius: 50%;
-}
-
-.aside__search-field button:hover {
-  background-size: cover;
-  border: 3px solid var(--color_cta_product_nonsale);
-}
-
-/* Banner-control */
-
-/* .banner_container.bottom {
-  border: 2px solid red;
-} */
-
-.banner_container {
-  text-align: center;
-  display: block;
-}
-
-.banner_container.bottom {
-  display: inline-block;
-}
-
-.banner_container.top {
-  display: none;
-}
-
-/* new small screens nav*/
-
-.mobile_nav {
-  margin: 0px 5px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 5px 0px;
-}
-
-.mobile_nav.burgermenu {
-}
-
-#burger {
-  //display: flex;
-  box-shadow: 0px 1px 4px 0.2px #191b26;
-  //box-shadow: none;
-}
-
-#mobile_basket {
-  display: flex;
-  position: initial;
-  margin: 0 20px;
 }

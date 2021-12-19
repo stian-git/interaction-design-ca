@@ -24,9 +24,7 @@
   .logo {
     grid-area: header_logo;
     left: 20px;
-    //width: 413.6px;
     width: 260px;
-    //height: 228px;
     height: 160px;
     display: inline-flex;
     margin-right: 80px;
@@ -70,17 +68,12 @@
   }
   .aside__container {
     display: flex;
-    /* width: 25.8em; */
   }
 
   .aside__search-field button {
     margin-left: 5em;
   }
 
-  /* .aside__search-container {
-    display: flex;
-    width: 25.8em;
-  } */
   .banner_container.top {
     display: inline-block;
   }
@@ -235,7 +228,7 @@
   }
 }
 
-/* Desktop design below - verify sizes*/
+/* Desktop design below */
 @media only screen and (min-width: 1280px) {
   header {
     height: 293.95px;
