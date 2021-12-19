@@ -7,30 +7,23 @@ const addressLine2 = document.querySelector("#address2");
 const zip = document.querySelector("#zip");
 const city = document.querySelector("#city");
 const country = document.querySelector("#country");
-//const payMethod = document.querySelector("fieldset[type=radio]");
 
 const shipmentPriceContainer = document.querySelector(".shipmentprice");
 const invoiceFeeContainer = document.querySelector(".invoicefee");
 const totalPriceContainer = document.querySelector(".totalprice");
 
+// Fixed prices for fees in basket
 let shipment = 7;
 let invoiceFee = 2;
 
 shipmentPriceContainer.innerHTML = shipment.toFixed(2);
 invoiceFeeContainer.innerHTML = invoiceFee.toFixed(2);
-// if (!storage.getItem("Basket") == "") {
-//   shipmentPriceContainer.innerHTML = shipment.toFixed(2);
-//   invoiceFeeContainer.innerHTML = invoiceFee.toFixed(2);
-// } else {
-//   shipmentPriceContainer.innerHTML = "0.00";
-//   invoiceFeeContainer.innerHTML = "0.00";
-//   totalPriceContainer.innerHTML = "0.00";
-// }
+
+// Validations:
 
 function validateEmail(email) {
   const regEx = /\S+@\S+\.\S+/;
   const patternMatches = regEx.test(email);
-  //console.log(patternMatches);
   return patternMatches;
 }
 
@@ -48,10 +41,9 @@ function textOnlyCheck(string) {
   return textOnly;
 }
 
-// Validate name field:
+// Enables and toggles the icon that indicates if a field is ok or not.
 
 function toggleValidation(field, status) {
-  //const valName = document.querySelector(".name .fas");
   field.style.display = "inline-flex";
   if (status === true) {
     field.classList.remove("fa-exclamation-circle");
@@ -63,6 +55,9 @@ function toggleValidation(field, status) {
     submitButton.disabled = true;
   }
 }
+
+// Validate name:
+
 function validateName(event) {
   const validationField = document.querySelector(".name .fas");
   const helptext = document.querySelector("label[for=name] .helptext");
@@ -118,13 +113,8 @@ function validateAddress1(event) {
 
 addressLine1.addEventListener("blur", validateAddress1);
 
-// Validate address line 1 field:
-function validateAddress2(event) {
-  // No requirements here.
-  // Add a checkmark?
-}
-
-addressLine2.addEventListener("blur", validateAddress2);
+// No validation on address line 2:
+// addressLine2.addEventListener("blur", validateAddress2);
 
 // Validate Zip:
 function validateZip(event) {
@@ -183,12 +173,11 @@ function validateCountry(event) {
 country.addEventListener("change", validateCountry);
 country.addEventListener("blur", validateCountry);
 
-// Final check before sending.
+// Validate terms:
 
 const termsCheckbox = document.querySelector("#terms");
 
 function validateTerms(event) {
-  //console.log("Validating Terms...!");
   const helptext = document.querySelector(".placeorder_container .helptext");
   if (!termsCheckbox.checked) {
     helptext.style.display = "block";
@@ -201,10 +190,12 @@ function validateTerms(event) {
 
 termsCheckbox.addEventListener("click", validateTerms);
 
+// Validate on submission
 const submitButton = document.querySelector("button[type=submit].jacket-cta");
+// Disables the submit-button by default.
 submitButton.disabled = true;
 
-// CHECK and enable fields
+// CHECK all validations and enable fields
 function checkAllFields() {
   // NB: Currently missing additional check for Payment method as there are only one option.
   const validationCorrectCount = document.querySelectorAll(".fa-check-circle").length;
@@ -220,18 +211,12 @@ function checkAllFields() {
 }
 checkOutForm.addEventListener("change", checkAllFields);
 
-// Uncomment the below to stop forwarding data to the next page.
-// function validateForm(event) {
-//   event.preventDefault();
-//   console.log("Submit");
-// }
-
-// checkOutForm.addEventListener("submit", validateForm);
+// Fields to display basket data:
 const basketItemContainer = document.querySelector("table");
 const basketSummaryContainer = document.querySelector(".basket__summary");
 const basketHeader = document.querySelector(".basket h2");
 
-//basketHeader.innerHTML = "Basket (Currently empty)";
+// Collect items from the basket and prepare the data to be displayed.
 function getJacketsInBasket() {
   let totalPrice = 0;
   basketItemContainer.innerHTML = `<tr class="rowheader">
@@ -240,16 +225,15 @@ function getJacketsInBasket() {
   <td class="basket_headertext">Price</td>
   <td class="basket_headertext">Delete</td>
 </tr>`;
-  console.log(storage.getItem("Basket"));
+  // Handle cases where basket is empty:
   basketItemContainer.style.display = "none";
   basketSummaryContainer.style.display = "none";
   basketHeader.innerHTML = "Basket (Currently empty)";
-  //basketHeader.innerHTML = "Basket (Currently empty)";
+  // When the basket is not empty:
   if (!storage.getItem("Basket") == "") {
     basketItemContainer.style.display = "table";
     basketSummaryContainer.style.display = "grid";
     basketHeader.innerHTML = "Basket";
-    console.log("Basket is not empty)");
     let basketArray = storage.getItem("Basket").split(";");
     let arrayIdx;
     let itemId;
@@ -259,12 +243,7 @@ function getJacketsInBasket() {
     let itemPrice;
     let itemThumb;
     let itemGender;
-
-    console.log(basketArray.length);
-
     basketArray.forEach((item, i) => {
-      // set required attributes:
-      //console.log("Item ID Index: " + i);
       itemId = item.match(/^\w+/)[0];
       arrayIdx = Number(itemId) - 1;
       itemPrice = allJackets[arrayIdx].price.toFixed(2);
@@ -283,24 +262,19 @@ function getJacketsInBasket() {
         price: itemPrice,
         gender: itemGender,
       };
-      //console.log(dataToDisplayInBasket);
+      // Then displays the collected item:
       displayBasketItem(dataToDisplayInBasket);
     });
   }
-  //console.log("Runs on load");
-
-  //console.log("Total price:" + totalPrice);
+  // Updates the price:
   totalPriceContainer.innerHTML = (totalPrice + shipment + invoiceFee).toFixed(2);
 }
 
 getJacketsInBasket();
 
-//basketItemContainer.innerHTML = "Svada";
-
+// Adds each item to the basket. (populated from GetJacketsInBasket)
 function displayBasketItem(item) {
   const basketItemContainer = document.querySelector("tbody");
-  //console.log(item.price);
-  //console.log(item.name);
   let genderImage;
   let genderText = item.gender.charAt(0).toUpperCase() + item.gender.slice(1);
   if (item.gender == "female") {
@@ -335,9 +309,6 @@ function displayBasketItem(item) {
     default:
       break;
   }
-  //console.log(genderImage);
-  //console.log(item.gender.charAt(0).toUpperCase() + item.gender.slice(1));
-  //console.log(genderText);
   const itemHTML = `<tr>
   <td class="name">
     <img src="${item.img}" class="basket_productimage" />
@@ -364,28 +335,19 @@ function displayBasketItem(item) {
 
 const deleteButtons = document.querySelectorAll(".deletebutton");
 
+// Removes item from basket when the delete-button is triggered.
+function deleteItem(event) {
+  // Identify which item to delete:
+  let arrIndexToDelete = event.target.classList.value.split("-")[1];
+  let basketArray = storage.getItem("Basket").split(";");
+  basketArray.splice(arrIndexToDelete, 1);
+  storage.setItem("Basket", basketArray.join(";"));
+  reloadAndKeepFormData();
+}
+
 deleteButtons.forEach((element) => {
   element.addEventListener("click", deleteItem);
 });
-
-function deleteItem(event) {
-  let arrIndexToDelete = event.target.classList.value.split("-")[1];
-  //let basketArray;
-  //console.log(currentJacketArray);
-  let basketArray = storage.getItem("Basket").split(";");
-  //let newBasketArray = basketArray.splice(arrIndexToDelete, 1);
-  console.log(basketArray);
-  basketArray.splice(arrIndexToDelete, 1);
-
-  console.log(event.target.classList.value);
-  //console.log(arrIndexToDelete);
-
-  console.log("Array after removal:");
-  console.log(basketArray);
-  storage.setItem("Basket", basketArray.join(";"));
-  //getJacketsInBasket();
-  reloadAndKeepFormData();
-}
 
 const addButtons = document.querySelectorAll(".addbutton");
 const subtractButtons = document.querySelectorAll(".subtractbutton");
@@ -394,38 +356,30 @@ let arr;
 let newArr;
 let arrIndexToAdd;
 
+// function to increase an item (+ button)
 function increaseItem(event) {
-  //console.log("Add!");
   arrIndexToAdd = event.target.classList.value.split("-")[1];
-  //console.log(arrIndexToAdd);
   arr = storage.getItem("Basket").split(";");
   newArr = addOrRemoveFromBasket(1, arr, Number(arrIndexToAdd));
-  //getJacketsInBasket();
-  //return newArr;
   reloadAndKeepFormData();
-  //location.reload();
 }
-
+// function to increase an item (- button)
 function subtractItem(event) {
-  //console.log("Subtract!");
   arrIndexToSubtract = event.target.classList.value.split("-")[1];
   arr = storage.getItem("Basket").split(";");
   newArr = addOrRemoveFromBasket(-1, arr, Number(arrIndexToSubtract));
-  //WORKAROUND to keep form data before reload:
   reloadAndKeepFormData();
 }
 
 addButtons.forEach((addElement) => {
   addElement.addEventListener("click", increaseItem);
-
-  //getJacketsInBasket();
 });
 
 subtractButtons.forEach((subtractElement) => {
   subtractElement.addEventListener("click", subtractItem);
-  //getJacketsInBasket();
 });
 
+// Stores form data to storage when page is refreshed while interacting with the basket.
 function reloadAndKeepFormData() {
   let customerName = fullName.value;
   let customerMail = email.value;
@@ -449,11 +403,9 @@ function reloadAndKeepFormData() {
   location.reload();
 }
 
-//reloadAndKeepFormData();
-
+// on page-load we check if form data is already stored and retrieves them again.
 function checkForReload() {
   if (storage.getItem("isReloaded") == "true") {
-    //console.log("Adding formdata from storage!");
     fullName.value = storage.getItem("Name");
     email.value = storage.getItem("Mail");
     phone.value = storage.getItem("Phone");
@@ -467,9 +419,6 @@ function checkForReload() {
     } else {
       termsCheckbox.checked = false;
     }
-    //termsCheckbox.checked = Boolean(storage.getItem("Terms"));
-
-    //console.log("Terms: " + Boolean(storage.getItem("Terms")));
     storage.setItem("isReloaded", false);
   }
 }

@@ -5,24 +5,24 @@ const jacketContainer = document.querySelector(".jacket-details");
 const jacketName = document.querySelector(".jacketname__h1");
 const jacket = allJackets.find(({ id }) => id == jacketId);
 
+/* Defining image filenames*/
 const img1 = jacket.image;
 const img2 = jacket.image.replace(".jpg", "-2.jpg");
 const img3 = jacket.image.replace(".jpg", "-3.jpg");
 const img4 = jacket.image.replace(".jpg", "-4.jpg");
-//console.log(img4);
 const thumb1 = jacket.image.replace(".jpg", "-thumb.jpg");
 const thumb2 = jacket.image.replace(".jpg", "-2-thumb.jpg");
 const thumb3 = jacket.image.replace(".jpg", "-3-thumb.jpg");
 const thumb4 = jacket.image.replace(".jpg", "-4-thumb.jpg");
 
-//console.log(jacket.sizes);
+// clears the size-variables for each run.
 let sizeS = "";
 let sizeM = "";
 let sizeL = "";
 let sizeXL = "";
 let sizeXXL = "";
 jacket.sizes.forEach((size) => {
-  //console.log(size);
+  //Adds a string to each size that are present on the given jacket. Strings that remain blank will not be displayed.
   switch (size) {
     case "S":
       sizeS = `<input type="radio" name="size" id="size-s" value="size-s" hidden="true"><label for="size-s"><img src="../images/size-s.png" aria-label="Size: S"></label>`;
@@ -44,6 +44,7 @@ jacket.sizes.forEach((size) => {
   }
 });
 
+// similar as above, clears the gender variables.
 let genderMale = "";
 let genderFemale = "";
 
@@ -54,9 +55,12 @@ if (jacket.male) {
 if (jacket.female) {
   genderFemale = `<input type="radio" name="gender" id="female" value="female" hidden="true"><label for="female" class="gender"><p class="required"><img src="../images/outline_female_red_24dp.png"><span class="tooltip_top tooltip_gendertop">Female</span></p></label>`;
 }
-//let sizeS = "<input type="radio" name="size" id="size-s" value="size-s" hidden="true"><label for="size-s"><img src="../images/size-s.png" aria-label="Size: S"></label>";
 
+// adds the jacket name:
 jacketName.innerHTML = `${jacket.name}`;
+
+// displays the jacket with the above defined variables.
+
 jacketContainer.innerHTML = `<section class="jacketdetails__images">
 
 <img src="${jacket.image}" alt="${jacket.name}" class="product-image" title="${jacket.name}" onerror="this.style.display='none'"/>
@@ -119,13 +123,13 @@ jacketContainer.innerHTML = `<section class="jacketdetails__images">
   <p class="reviewername">${jacket.reviewer}</p>
 </section>`;
 
-// if there is only one gender, we select it by default.
+// if there is only one gender, we select it by default:
 
 if (!(jacket.male == jacket.female)) {
   document.querySelector("input[name=gender]").checked = true;
 }
 
-// Change image to show.
+// Change image to show when there are multiple available available to display:
 function changeProductImage(newImg) {
   const mainImageContainer = document.querySelector(".product-image");
   let nextImg;
@@ -150,9 +154,11 @@ function changeProductImage(newImg) {
   mainImageContainer.style.display = "inline";
 }
 
+// clears the selectiosn upon loading.
 let selectedSize;
 let selectedGender;
 
+// Checks if both size and gender is selected.
 function checkSections() {
   selectedSize = document.querySelector("input[name=size]:checked");
   selectedGender = document.querySelector("input[name=gender]:checked");
@@ -164,27 +170,22 @@ function checkSections() {
 }
 
 const selectionForm = document.querySelector(".form_orderdetails");
-
 selectionForm.addEventListener("change", checkSections);
 
 // Buy and basket functions:
 
 const buyButton = document.querySelector("button[type=submit].jacket-cta");
-//console.log(buyButton);
+
+// disabled the buyButton by default.
 buyButton.disabled = true;
 
+// Adds item to basket, shows checkout-button, updates basket count, and displays a confirmation of the action to the user.
 function addToBasket(event) {
   //event.preventDefault();
-
-  //let jacketData = [jacketId, selectedSize.value, selectedGender.value, 1];
   let jacketData = `${jacketId},${selectedSize.value},${selectedGender.value},1`;
-  console.log("Adding: " + jacketData);
   checkoutbutton.style.display = "inline-block";
   addToStorage(jacketData);
-  //storage.setItem("Basket", jacketData2 + ";");
-  //console.log(storage.getItem("Basket"));
   updateBasketItemCount();
-  // inform user:
   buyButton.innerText = "Item added";
   buyButton.id = "added";
   setTimeout(() => {
@@ -194,69 +195,46 @@ function addToBasket(event) {
 }
 buyButton.addEventListener("click", addToBasket);
 
+// updates the storage with new item.
 function addToStorage(str) {
-  //already in basket?
-  console.log("AddToStorage: " + str + "(" + typeof str + ")");
-
+  // clear the basket:
   let currentBasket = [];
+  // Check if something is in the basket already:
   if (storage.getItem("Basket")) {
-    //str = toString(str);
+    // convert existing storage-string to an array:
     currentBasket = storage.getItem("Basket").split(";");
-    //console.log(typeof str);
-    //console.log("Sending: " + str + "(" + typeof str + ")");
+    // check if item already exist, returns a boolean (if it exists, the alreadyInBasket-function adds it):
     let duplicateCheckResult = alreadyInBasket(str, currentBasket);
-    if (typeof duplicateCheckResult == "object") {
-      //console.log("We have an object");
-      console.log(duplicateCheckResult);
-    }
     if (duplicateCheckResult == false) {
-      //console.log("We have a boolean = no duplicate");
+      // if item doesn`t already exist we add it.
       currentBasket.push(str);
     }
-    //console.log(typeof duplicateCheckResult);
-    //console.log("Old storage is: ");
-    //console.log(currentBasket);
-
+    // we add the new string including the new item to the basket.
     storage.setItem("Basket", currentBasket.join(";"));
-    //console.log("New storage is: " + currentBasket.join(";"));
-    //console.log(currentBasket);
   } else {
-    //console.log("New storage added to empty basket: " + str);
+    // If this is the first item in the basket, we just write it as it is.
     storage.setItem("Basket", str);
   }
-  //console.log(storage.getItem("Basket"));
-
-  //console.log("New basket: " + storage.getItem("Basket"));
 }
 
-function removeFromStorage(str) {}
-
+// Checks if item is already in basket and updates the number +1 if it exists.
 function alreadyInBasket(str, basketArray) {
+  // splits the string after the gender, returning the item counter.
   let trimmedSearchString = str.match(/(.*)le/)[0];
-  //console.log("Trimmed: " + trimmedSearchString);
-  //console.log(basketArray);
   let match;
   for (let i = 0; i < basketArray.length; i++) {
-    //console.log("Searching for: " + trimmedSearchString);
-    //console.log("in this string: " + basketArray[i]);
     match = basketArray[i].search(trimmedSearchString);
-    //console.log(match + " : 0 or higher = match");
     if (match >= 0) {
-      //console.log("Item exists, we will add one more to the existing one");
       basketArray = addOrRemoveFromBasket(1, basketArray, i);
       // stop iterating on first match:
       return basketArray;
     }
   }
   return false;
-  //console.log(str.search(regex));
-  // regex; (.*)le = 1,size-l,fema / 1,size-l,ma
 }
 
-// currentBasket = storage.getItem("Basket").split(";");
-// addOrRemoveFromBasket(1, currentBasket, [0]);
+// Displays the checkout-button on document load if there are items in the basket.
 const checkoutbutton = document.querySelector("button.checkout");
 if (basketCounterContainer.innerHTML == 0) {
   checkoutbutton.style.display = "none";
 }
-//checkoutbutton.style.display = "none";

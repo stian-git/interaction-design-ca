@@ -1,7 +1,7 @@
 // Make sure we clear the storage when order has been placed:
 storage.clear();
-
 updateBasketItemCount();
+
 // Retrieve parameters from URL:
 
 const queries = document.location.search;
@@ -10,11 +10,8 @@ const params = new URLSearchParams(queries);
 const customerName = params.get("name");
 const customerEmail = params.get("email");
 const orderNumber = 123456;
-//console.log("Thank you, " + customerName);
 
-//const nameContainer = document.querySelector(".nameContainer");
-
-//nameContainer.innerHTML = `, ${customerName}`;
+/* Displays the checkout confirmation message using the above variables */
 
 const checkout_textContainer = document.querySelector(".checkout__main");
 

@@ -1,48 +1,35 @@
 const searchQuery = document.location.search;
 const searchParams = new URLSearchParams(searchQuery);
-
-const searchString = searchParams.get("q");
-//console.log(searchString);
+const searchString = searchParams.get("q"); // q = search query.
 
 const jacketsContainer = document.querySelector(".main__jacketlist");
 const searchField = document.querySelector("input[type=search]");
 const searchButton = document.querySelector(".aside__search-field button");
-//searchButton.disable = true;
+const productFilter = document.querySelector(".filter-container form");
+
+let currentJacketArray = allJackets;
+
+// disable the searchbutton to avoid resetting filters. (search field got another event)
 searchButton.onclick = function (event) {
   event.preventDefault();
 };
-//let defaultJacketArray = allJackets;
-//let currentJacketArray = allJackets;
 
-//let jackets;
-// is jackets-variable absolete? (replace with currentJacketArray?)
-
+/* displays the jackets in the provided array, or all if no filters enabled. */
 function showJackets(arr = allJackets) {
   jacketsContainer.innerHTML = "";
   jackets = arr;
   if (jackets.length == 0) {
-    console.log("There are no jackets to show");
     jacketsContainer.innerHTML = `<div class="error nojacketstoshow">
                                       <p>0 jackets are currently matching your search and/or filter.</p>
                                       <p>Please modify your filter or clear the search field to resume</>
                                   </div>`;
   }
-  // if (arr) {
-  //   jackets = arr;
-  //   console.log("Using provided Array");
-  // } else {
-  //   jackets = allJackets;
-  //   //console.log(allJackets);
-  //   console.log("Using default Array");
-  // }
   for (var i = 0; i < jackets.length; i++) {
-    //let productLink = `<a href="jacketdetails.html?id=${jackets[i].id}" class="jacket-cta" title="${jackets[i].name}">View</a>`;
     let productLink = `<p class="jacket-cta" title="${jackets[i].name}">View</p>`;
     let bestbuyIcon = ``;
     let maleIcon = ``;
     let femaleIcon = ``;
     if (jackets[i].sales === true) {
-      //productLink = `<a href="jacketdetails.html?id=${jackets[i].id}" class="jacket-cta jacketsale" title="${jackets[i].name}">On Sale</a>`;
       productLink = `<p class="jacket-cta jacketsale" title="${jackets[i].name}">On Sale</p>`;
       bestbuyIcon = `<svg id="BestBuy-Mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82 78" aria-label="Best buy badge">
     <g id="Polygon_1" data-name="Polygon 1" fill="#0a3641">
@@ -75,7 +62,8 @@ function showJackets(arr = allJackets) {
   </a>`;
   }
 }
-//showJackets();
+
+/* returns an array with only jackets matching the filter */
 
 function genderFilter(gender, arr = allJackets) {
   let result = [];
@@ -95,12 +83,13 @@ function genderFilter(gender, arr = allJackets) {
   return result;
 }
 
-function clearFilter() {
-  currentJacketArray = allJackets;
-  showJackets(currentJacketArray);
-}
+/* A reset function*/
+// function clearFilter() {
+//   currentJacketArray = allJackets;
+//   showJackets(currentJacketArray);
+// }
 
-//genderFilter("male");
+/* returns an array with only the jackets matching the chosen sizes  */
 
 function sizeFilter(sizes, arr = allJackets) {
   let result = [];
@@ -119,76 +108,49 @@ function sizeFilter(sizes, arr = allJackets) {
   return result;
 }
 
-//Example: sizeFilter(["S","M"])
-
+/* search product name and filters the result and then displays the result*/
 function searchProducts(str, arr = allJackets) {
-  //console.log("searching for " + str);
   let result = [];
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].name.toLocaleLowerCase().search(str.toLocaleLowerCase()) >= 0) {
-      //console.log("Match: " + arr[i].name);
       result.push(arr[i]);
     }
   }
-  //console.log(result);
   return result;
 }
 
-//Example: searchProducts("ali");
-
-//
-if (!searchString) {
-  showJackets();
-  //console.log("No search query");
-} else {
-  showJackets(searchProducts(searchString));
-  //console.log("Will show results for: " + searchString);
-  searchField.value = searchString;
-}
-
-const productFilter = document.querySelector(".filter-container form");
+/* checks each filter and search field and runs each so combine all filters, and then displays the result. */
 
 function updateProductWithFilters() {
-  // Search field.
   currentJacketArray = allJackets;
-  //console.log("Before any changes are made");
-  //console.log(currentJacketArray);
   if (!searchField.value == "") {
-    //console.log("Searchfield is not empty");
     currentJacketArray = searchProducts(searchField.value);
   }
-  //console.log("After search-filter");
-  //console.log(currentJacketArray);
-
-  // Gender next
   let selectedGender = document.querySelector("input[name=gender]:checked").value;
-  //console.log("Gender: " + selectedGender);
   if (selectedGender != "both") {
-    //console.log("Filtering Genders!");
     currentJacketArray = genderFilter(selectedGender, currentJacketArray);
   }
-
-  //console.log(currentJacketArray);
-  // Sizes last
   let sizes = [];
   const sizeBoxes = document.querySelectorAll(".filter-container input[type=checkbox]");
-  //console.log(sizeBoxes.length);
-
   sizeBoxes.forEach((size) => {
     if (size.checked) {
-      //console.log("Checked: " + size.value);
       sizes.push(size.value);
     }
   });
-
   if (sizes.length != 0) {
-    //console.log("Sizes selected: " + sizes.length);
     currentJacketArray = sizeFilter(sizes, currentJacketArray);
   }
-
   showJackets(currentJacketArray);
 }
 
 productFilter.addEventListener("change", updateProductWithFilters);
 
 searchField.addEventListener("keyup", updateProductWithFilters);
+
+/* if a search query is found in the header, then display the search result*/
+if (!searchString) {
+  showJackets();
+} else {
+  showJackets(searchProducts(searchString));
+  searchField.value = searchString;
+}
